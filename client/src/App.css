@@ -115,7 +115,7 @@
 
 .graph {
   margin: 4rem 2rem;
-  height: 26rem;
+  height: 27rem;
   margin-bottom: 5rem;
 }
 
@@ -217,3 +217,12 @@
 
   color: #ffffff;
 }
+
+.centerLogin{
+  display: flex;
+
+}
+
+
+/* login */
+

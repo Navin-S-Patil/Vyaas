@@ -36,3 +36,184 @@
     transform: rotate(360deg);
   }
 }
+
+#background {
+}
+
+.Center_row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.Center_row_mid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.Center_column {
+  display: flex;
+  flex-direction: row;
+}
+
+.logo {
+  padding: 0.9rem;
+  height: 4.5rem;
+  z-index: 1;
+}
+
+.searchBox {
+  background: #ffffff;
+  box-shadow: 0px 0px 16px 8px rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  border: 0 solid;
+  outline: none;
+  padding: 0.8rem 8rem;
+  /* margin: auto; */
+  font-size: 1.2rem;
+  text-align: center;
+}
+.loginRegister {
+  background: #036ad1;
+  border-radius: 15px;
+  /* margin: auto; */
+  padding: 0.6rem 3rem;
+  border: 0 solid;
+  font-size: 1.4rem;
+
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  /* font-size: 29px; */
+  line-height: 35px;
+  /* identical to box height */
+
+  text-transform: capitalize;
+
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.front_par {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3.8rem;
+  line-height: 76px;
+  text-transform: capitalize;
+
+  color: #ffffff;
+  margin: 1rem 1rem;
+}
+
+.text_align{
+  text-align: left;
+}
+
+.graph {
+  margin: 4rem 2rem;
+  height: 26rem;
+  margin-bottom: 5rem;
+}
+
+.ourProducts {
+  /* z-index: -1; */
+  background-color: #67a1e8;
+  margin-top: 2rem;
+  /* filter: blur(2px); */
+}
+
+.headingOurProducts {
+  background: rgba(80, 93, 232, 0.72);
+  border-radius: 45px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 52px;
+  /* identical to box height */
+  text-transform: capitalize;
+  color: #ffffff;
+  margin: 3rem auto;
+  margin-top: 4rem;
+  padding: 0.5rem 2rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.paragraph {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 76px;
+  text-transform: capitalize;
+
+  color: #ffffff;
+  margin: 0.8rem 1rem;
+}
+
+.laptop {
+  height: 25rem;
+  margin: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.ZeroText {
+  display: flex;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  /* font-size: 40px; */
+  /* line-height: 48px; */
+  text-transform: capitalize;
+
+  color: #ffffff;
+}
+
+.zero {
+  font-size: 8rem;
+  margin: 0;
+}
+
+.accountOpening {
+  font-size: 2rem;
+  padding: 0;
+  margin-top: 3rem;
+}
+
+.smallText {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 34px;
+  text-transform: capitalize;
+
+  color: #ffffff;
+}
+
+.create {
+  width: 30rem;
+  margin: 2rem 0rem;
+}
+
+.keepInvest {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 63px;
+  line-height: 76px;
+  text-align: center;
+
+  color: #ffffff;
+}

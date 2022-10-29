@@ -64,3 +64,15 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+
+
+/*
+buy / order / purches
+sell 
+profit - loss
+data-fetch
+user add money (in month once) or fixed
+
+change password
+
+*/

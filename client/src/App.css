@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
@@ -61,7 +65,7 @@
 
 .logo {
   padding: 0.9rem;
-  height: 4.5rem;
+  height: 5.5rem;
   z-index: 1;
 }
 
@@ -109,7 +113,7 @@
   margin: 1rem 1rem;
 }
 
-.text_align{
+.text_align {
   text-align: left;
 }
 
@@ -218,11 +222,43 @@
   color: #ffffff;
 }
 
-.centerLogin{
+.centerLogin {
   display: flex;
-
 }
 
+.Footer_bg {
+  background-color: #036ad1;
+}
 
-/* login */
+.white_text {
+  color: #ffffff;
+  font-size: 1.3rem;
+  
+}
 
+.mod{
+  justify-content: space-evenly;
+}
+
+.footerLogos{
+  width: 2.3rem;
+  height: 2.3rem;
+  margin: 0.5rem ;
+  margin-bottom: 4rem;
+}
+
+.box_2{
+  text-decoration: none;
+}
+
+ul{
+  list-style-type: none;
+  padding: 0;
+}
+
+.footerVyaas{
+  margin: auto;
+  margin-top: 2rem;
+  height: 5rem;
+  
+}

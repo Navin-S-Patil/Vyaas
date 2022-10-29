@@ -2,8 +2,8 @@ import React from "react";
 
 function Login() {
   return (
-    <div classNameName="centerLogin">
-      
+    <div>
+      <h1>Login</h1>
     </div>
   );
 }

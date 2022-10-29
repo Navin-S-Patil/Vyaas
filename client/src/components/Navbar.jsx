@@ -1,7 +1,10 @@
-import React from "react";
 import logo from "../images/logo.png";
+import React, { useState } from "react";
 
 function Navbar() {
+
+  const [userlog, setuserlog] = useState("Login");
+
   return (
     <div className="Center_row">
       <img src={logo} alt="logo" id="logo" className="logo" />

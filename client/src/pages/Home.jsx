@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../components/Footer";
 import FrontGraph from "../components/FrontGraph";
 import KeepInvesting from "../components/KeepInvesting";
 import Navbar from "../components/Navbar";
@@ -11,6 +12,7 @@ function Home() {
       <FrontGraph/>
       <OurProducts/>
       <KeepInvesting/>
+      <Footer/>
     </div>
   );
 }

@@ -5,6 +5,8 @@ import KeepInvesting from "../components/KeepInvesting";
 import Navbar from "../components/Navbar";
 import OurProducts from "../components/OurProducts";
 
+import Feedback from "../components/Feedback";
+
 function Home() {
   return (
     <div>
@@ -13,6 +15,7 @@ function Home() {
       <OurProducts/>
       <KeepInvesting/>
       <Footer/>
+      {/* <Feedback /> */}
     </div>
   );
 }

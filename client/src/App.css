@@ -108,7 +108,7 @@
   font-size: 3.8rem;
   line-height: 76px;
   text-transform: capitalize;
-
+  text-align: center;
   color: #ffffff;
   margin: 1rem 1rem;
 }
@@ -251,9 +251,31 @@
   text-decoration: none;
 }
 
-ul{
+/* ul{
   list-style-type: none;
   padding: 0;
+} */
+
+.linktag{
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.linktag:visited{
+  color: #ffffff;
+}
+
+.linktag:hover{
+  color: #67a1e8;
+}
+
+.footerLinks{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* align-items: center; */
+  margin: 0.5rem;
+
 }
 
 .footerVyaas{
@@ -262,3 +284,37 @@ ul{
   height: 5rem;
   
 }
+
+/* 404 page css */
+
+.notCenter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+.notheading{
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3.8rem;
+  line-height: 76px;
+  text-transform: capitalize;
+  text-align: center;
+  color: #ffffff;
+  margin: 1rem 1rem;
+  margin-top: 2rem;
+}
+.nottext{
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 76px;
+  text-transform: capitalize;
+  text-align: center;
+  color: #ffffff;
+  margin: 1rem 1rem;
+}
+/*  */

@@ -9,6 +9,7 @@ import Stocks from "./pages/Stocks";
 import Stock from "./pages/Stock";
 import User from "./pages/User";
 import Login from "./pages/Login";
+import Notfound from "./pages/Notfound";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <Route path="/stock/:symbol" element={<Stock />} />
       <Route path="/user" element={<User />} />
       <Route path="/login" element={<Login />} />
-      <Route path="*" element={<div>404</div>} />
+      <Route path="*" element={<Notfound/>} />
     </Routes>
   );
 }

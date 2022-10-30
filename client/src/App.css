@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -76,10 +76,17 @@
   border: 0 solid;
   outline: none;
   padding: 0.8rem 8rem;
-  /* margin: auto; */
   font-size: 1.2rem;
   text-align: center;
 }
+
+
+#loginButton:hover {
+  /* box-shadow: 0px 4px 16px 4px rgba(255, 255, 255, 0.86); */
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
+}
+
 .loginRegister {
   background: #036ad1;
   border-radius: 15px;
@@ -233,21 +240,20 @@
 .white_text {
   color: #ffffff;
   font-size: 1.3rem;
-  
 }
 
-.mod{
+.mod {
   justify-content: space-evenly;
 }
 
-.footerLogos{
+.footerLogos {
   width: 2.3rem;
   height: 2.3rem;
-  margin: 0.5rem ;
+  margin: 0.5rem;
   margin-bottom: 4rem;
 }
 
-.box_2{
+.box_2 {
   text-decoration: none;
 }
 
@@ -256,45 +262,42 @@
   padding: 0;
 } */
 
-.linktag{
+.linktag {
   text-decoration: none;
   color: #ffffff;
 }
 
-.linktag:visited{
+.linktag:visited {
   color: #ffffff;
 }
 
-.linktag:hover{
+.linktag:hover {
   color: #67a1e8;
 }
 
-.footerLinks{
+.footerLinks {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   /* align-items: center; */
   margin: 0.5rem;
-
 }
 
-.footerVyaas{
+.footerVyaas {
   margin: auto;
   margin-top: 2rem;
   height: 5rem;
-  
 }
 
 /* 404 page css */
 
-.notCenter{
+.notCenter {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
 }
-.notheading{
+.notheading {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -306,7 +309,7 @@
   margin: 1rem 1rem;
   margin-top: 2rem;
 }
-.nottext{
+.nottext {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;

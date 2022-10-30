@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import IndividualStockBox from "./IndividualStockBox";
+import StockBoxGrid from "../components/StockBoxGrid";
 
 const Container = styled.div`
   color: none;
@@ -25,7 +25,7 @@ function StocksBox() {
   return (
     <Container>
       <Heading>Stocks</Heading>
-      <IndividualStockBox />
+      <StockBoxGrid />
     </Container>
   );
 }

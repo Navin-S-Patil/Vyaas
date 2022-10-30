@@ -59,6 +59,11 @@ const Email = styled.input`
   box-shadow: 0px 4px 16px 4px rgba(180, 180, 180, 0.86);
   border-radius: 15px;
   margin: 1rem 0rem;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    box-shadow: 0px 4px 16px 4px rgba(180, 180, 180, 0.86);
+    transform: scale(1.05);
+  }
 `;
 
 const Message = styled.textarea`
@@ -76,6 +81,11 @@ const Message = styled.textarea`
   border-radius: 15px;
   margin: 1rem 0rem;
   resize : none;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    box-shadow: 0px 4px 16px 4px rgba(180, 180, 180, 0.86);
+    transform: scale(1.05);
+  }
 `;
 
 const Submit = styled.button`
@@ -95,6 +105,7 @@ const Submit = styled.button`
   }
   /* margin: 1rem; */
   margin-top: 2rem;
+  transition: all 0.3s ease-in-out;
 `;
 
 function Feedback() {

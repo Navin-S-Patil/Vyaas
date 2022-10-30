@@ -1,5 +1,6 @@
 import logo from "../images/logo.png";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
 
@@ -7,9 +8,9 @@ function Navbar() {
 
   return (
     <div className="Center_row">
-      <img src={logo} alt="logo" id="logo" className="logo" />
+      <Link to="/"><img src={logo} alt="logo" id="logo" className="logo" /></Link>
       <input type="search" placeholder="Search" id="search" className="searchBox"/>
-      <button className="loginRegister">Login / Register</button>
+      <button className="loginRegister" id="loginButton">Login / Register</button>
 
     </div>
   );

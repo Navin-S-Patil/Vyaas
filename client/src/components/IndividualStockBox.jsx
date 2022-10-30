@@ -10,7 +10,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 20%;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    box-shadow: 0px 4px 16px 4px rgba(180, 180, 180, 0.86);
+    transform: scale(1.05);
+  }
 `;
 
 const Logo = styled.img`

@@ -1,8 +1,14 @@
 import React from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 
 function Stock() {
   return (
-    <div>Stock</div>
+    <div>
+      <Navbar/>
+      
+      <Footer/>
+    </div>
   )
 }
 

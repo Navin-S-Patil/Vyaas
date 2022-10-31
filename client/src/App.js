@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
@@ -19,6 +18,8 @@ function App() {
       <Route path="/portfolio" element={<Portfolio />} />
       <Route path="/stocks" element={<Stocks />} />
       <Route path="/stocks/:id" element={<Stock />} />
+      {/* For now Temp */}
+      <Route path="/stocks/axis" element={<Stock />} />
       <Route path="/user" element={<User />} />
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<Notfound/>} />

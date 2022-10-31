@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import graph from "../images/graph.png";
 
 function FrontGraph() {
@@ -8,9 +9,9 @@ function FrontGraph() {
         <p className="front_par text_align">
           I'm Vyaas, and I'm <br/>a stock learning <br/>platform!
         </p>
-        <button className="loginRegister ">
+        <Link to="stocks"><button className="loginRegister ">
           Lets get started &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; →
-        </button>
+        </button></Link>
       </div>
       <img src={graph} alt="graph" className="graph" />
     </div>

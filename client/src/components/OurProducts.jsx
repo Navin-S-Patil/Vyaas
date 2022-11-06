@@ -28,7 +28,7 @@ function OurProducts() {
             market with fun
           </p> */}
           <img src={text} alt="text" className="text" />
-          <button className="loginRegister create">Create account now</button>
+          <button className="loginRegister loginButton create">Create account now</button>
         </div>
       </div>
     </div>

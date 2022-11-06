@@ -81,7 +81,7 @@
 }
 
 
-#loginButton:hover {
+.loginButton:hover {
   /* box-shadow: 0px 4px 16px 4px rgba(255, 255, 255, 0.86); */
   transition: all 0.3s ease-in-out;
   transform: scale(1.05);

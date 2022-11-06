@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import IndividualStockBox from "./IndividualStockBox";
 import { useState, useEffect } from "react";
+import stocksInfo from "../data";
 
 const Container = styled.div`
   display: grid;
@@ -16,53 +17,61 @@ const Box = styled.div`
 `;
 
 function StockBoxGrid() {
+  // console.log(stocksInfo);
 
-  const [Stock, setStock] = useState([]);
+  const [stock, setStock] = useState({
+    apiName : "AXISBANK"
+  });
+
+  const [stockData, setStockData] = useState({
+    name: "Axis Bank",
+    symbol: "AXISBANK",
+    price: 0,
+    profit: 0,
+  });
+  
 
   useEffect(() => {
-    fetch("http://localhost:3001/stocks")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-
+    
     return () => {
-      setStock([]);
-    };
+      fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock.apiName}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          const price = data["Time Series (Daily)"]
+          const stocks = price[Object.keys(price)[0]];
+        });
+        //   setStockData({
+        //     ...stock,
+        //     price: stocks["4. close"]
+        // });
   }, []);
+
+  function handleStock(info) {
+    setStock(() => {
+      // stock.apiName = info;
+    });
+  }
 
   return (
     <Container>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
-      <Box>
-        <IndividualStockBox />
-      </Box>
+      {stocksInfo.map((item) => {
+
+        {/* handleStock(item.apiName); */}
+
+        return (
+          <Box>
+            <IndividualStockBox
+              key={item.id}
+              name={item.name}
+              symbol={item.symbol}
+              price={stocks["4. close"]}
+            />
+          </Box>
+        );
+      })}
+      
     </Container>
   );
 }

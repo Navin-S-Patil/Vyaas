@@ -10,7 +10,7 @@ function Navbar() {
     <div className="Center_row">
       <Link to="/"><img src={logo} alt="logo" id="logo" className="logo" /></Link>
       <input type="search" placeholder="Search" id="search" className="searchBox"/>
-      <button className="loginRegister" id="loginButton">Login / Register</button>
+      <button className="loginRegister loginButton">Login / Register</button>
 
     </div>
   );

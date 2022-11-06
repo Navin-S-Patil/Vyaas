@@ -56,10 +56,10 @@ const Profit  = styled.p`
     margin-bottom: 1rem;
 `;
 
-function IndividualStockBox() {
+function IndividualStockBox(props) {
   return <Container>
-    <Logo src={facebook} alt="StockLogo" />
-    <StockName>Facebook</StockName>
+    <Logo src={props.symbol} alt="StockLogo" />
+    <StockName>{props.name}</StockName>
     <Price>₹80</Price>
     <Profit>+80</Profit>
   </Container>;

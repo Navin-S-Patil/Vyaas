@@ -9,7 +9,7 @@ function FrontGraph() {
         <p className="front_par text_align">
           I'm Vyaas, and I'm <br/>a stock learning <br/>platform!
         </p>
-        <Link to="stocks"><button className="loginRegister ">
+        <Link to="stocks"><button className="loginRegister loginButton ">
           Lets get started &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; →
         </button></Link>
       </div>

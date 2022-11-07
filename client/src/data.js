@@ -1,29 +1,16 @@
-import axis from "./images/stockLogos/axis.png";
-import tcs from "./images/stockLogos/tcs.png";
-// import adityabirla from "./images/stockLogos/adityabirla.png";
-import bajaj from "./images/stockLogos/bajaj.png";
-import bajajfinserv from "./images/stockLogos/bajajfinserv.png";
-import bpcl from "./images/stockLogos/bpcl.png";
-import cipla from "./images/stockLogos/cipla.png";
-import jswsteel from "./images/stockLogos/jswsteel.png";
-import icicibank from "./images/stockLogos/icicibank.png";
-import gail from "./images/stockLogos/gail.png";
-import airtel from "./images/stockLogos/airtel.png";
-import britannia from "./images/stockLogos/britannia.png";
-import asianpaints from "./images/stockLogos/asianpaints.png";
+
 
 const stocksInfo = [
-  { id: 1, name: "Axis Bank", symbol: { axis }, apiName: "AXISBANK" },
-  { id: 2, name: "TCS", symbol: { tcs }, apiName: "TCS" },
-  // { id: 3, name: "Aditya Birla", symbol: { adityabirla }, apiName: "ADANIPORTS" },
-  { id: 3, name: "airtel", symbol: { airtel }, apiName: "BHARTIARTL" },
-  { id: 4, name: "Bajaj Finance", symbol: { bajaj }, apiName: "BAJFINANCE" },
-  { id: 5, name: "Bajaj Finserv", symbol: { bajajfinserv }, apiName: "BAJAJFINSV" },
-  { id: 6, name: "BPCL", symbol: { bpcl }, apiName: "BPCL" },
-  { id: 7, name: "Cipla", symbol: { cipla }, apiName: "CIPLA" },
-  { id: 8, name: "JSW Steel", symbol: { jswsteel }, apiName: "JSWSTEEL" },
-  { id: 9, name: "ICICI Bank", symbol: { icicibank }, apiName: "ICICIBANK" },
-  { id: 10, name: "GAIL", symbol: { gail }, apiName: "GAIL" },
+  { id: 1, name: "Axis Bank", symbol: "/images/stockLogos/axis.png", apiName: "AXISBANK" , price: 867.25, profit: 3.3},
+  { id: 2, name: "TCS", symbol: "/images/stockLogos/tcs.png", apiName: "TCS" , price: 3216.30, profit: 9.15},
+  { id: 3, name: "airtel", symbol: "/images/stockLogos/airtel.png", apiName: "BHARTIARTL" , price: 816.40, profit: -2},
+  { id: 4, name: "Bajaj Finance", symbol: "/images/stockLogos/bajaj.png", apiName: "BAJFINANCE" , price: 7210.00, profit: 88.40},
+  { id: 5, name: "Bajaj Finserv", symbol: "/images/stockLogos/bajajfinserv.png", apiName: "BAJAJFINSV" , price: 1801.70, profit: 78.45},
+  { id: 6, name: "BPCL", symbol: "/images/stockLogos/bpcl.png", apiName: "BPCL"  , price: 301.60, profit: -3.5},
+  { id: 7, name: "Cipla", symbol: "/images/stockLogos/cipla.png", apiName: "CIPLA" , price: 1146.35, profit: -13.6},
+  { id: 8, name: "JSW Steel", symbol: "/images/stockLogos/jswsteel.png", apiName: "JSWSTEEL" , price: 701.50, profit: 21.05},
+  { id: 9, name: "ICICI Bank", symbol: "/images/stockLogos/icicibank.png", apiName: "ICICIBANK" , price: 905.65, profit: -2.7},
+  { id: 10, name: "GAIL", symbol: "/images/stockLogos/gail.png", apiName: "GAIL" , price: 88.55, profit: -2},
 ];
 
 export default stocksInfo;

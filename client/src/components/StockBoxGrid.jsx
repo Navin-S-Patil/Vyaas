@@ -12,66 +12,59 @@ const Container = styled.div`
 `;
 
 const Box = styled.div`
-  /* grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); */
-  /* width: 100%; */
+  /* grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  width: 100%; */
 `;
 
 function StockBoxGrid() {
-  // console.log(stocksInfo);
 
-  const [stock, setStock] = useState({
-    apiName : "AXISBANK"
-  });
+  // const [stock, setStock] = useState("AXISBANK");
 
-  const [stockData, setStockData] = useState({
-    name: "Axis Bank",
-    symbol: "AXISBANK",
-    price: 0,
-    profit: 0,
-  });
-  
+  // const [stockData, setStockData] = useState({
+  //   price: 0,
+  //   profit: 0,
+  // });
 
-  useEffect(() => {
-    
-    return () => {
-      fetch(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock.apiName}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          const price = data["Time Series (Daily)"]
-          const stocks = price[Object.keys(price)[0]];
-        });
-        //   setStockData({
-        //     ...stock,
-        //     price: stocks["4. close"]
-        // });
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     fetch(
+  //       `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => {
 
-  function handleStock(info) {
-    setStock(() => {
-      // stock.apiName = info;
-    });
-  }
+  //         const price = data["Time Series (Daily)"];
+  //         const dataStock = price[Object.keys(price)[0]];
+          
+
+  //         setStockData({
+  //           ...stockData,
+  //           price: dataStock["4. close"],
+  //           profit: dataStock["4. close"] - price[Object.keys(price)[1]]["4. close"],
+  //         });
+
+  //         console.log(stockData);
+  //       });
+  //   };
+  // }, [stock]);
+
 
   return (
     <Container>
       {stocksInfo.map((item) => {
-
-        {/* handleStock(item.apiName); */}
-
+        
         return (
           <Box>
             <IndividualStockBox
               key={item.id}
               name={item.name}
               symbol={item.symbol}
-              price={stocks["4. close"]}
+              price={item.price}
+              profit={item.profit}
             />
           </Box>
         );
       })}
-      
     </Container>
   );
 }

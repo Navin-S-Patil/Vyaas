@@ -1,15 +1,16 @@
-import React from 'react'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
+import React from "react";
+import Footer from "../components/Footer";
+import Graph from "../components/Graph";
+import Navbar from "../components/Navbar";
 
 function Stock() {
   return (
     <div>
-      <Navbar/>
-      
-      <Footer/>
+      <Navbar />
+      <Graph />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default Stock
+export default Stock;

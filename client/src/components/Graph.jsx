@@ -1,17 +1,36 @@
 import React, { useEffect } from "react";
 import Plot from "react-plotly.js";
 import { useState } from "react";
-import { Line } from 'react-chartjs-2';
+import { Line } from "react-chartjs-2";
 import styled from "styled-components";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin: 2rem;
 `;
-
 
 function Graph() {
   const [stockChartXValues, setstockChartXValues] = useState([]);
@@ -32,10 +51,10 @@ function Graph() {
     let stockChartYValuesFunction = [];
 
     fetch(API_Call)
-      .then(function (response) {
-        return response.json();
+      .then((res) => {
+        return res.json();
       })
-      .then(function (data) {
+      .then((data) => {
         console.log(data);
 
         for (var key in data["Time Series (Daily)"]) {
@@ -45,13 +64,24 @@ function Graph() {
           );
         }
 
-
-        setstockChartXValues(stockChartXValuesFunction);
-        setstockChartYValues(stockChartYValuesFunction);
-
-       
+        setstockChartXValues(...stockChartXValues,stockChartXValuesFunction);
+        setstockChartYValues(...stockChartYValues,stockChartYValuesFunction);
       });
   }
+
+  // other data visulation graph
+  // const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       label: 'Dataset 1',
+  //       data: [{x: stockChartXValues}, {y: stockChartYValues}],
+  //       borderColor: 'rgb(255, 99, 132)',
+  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+  //     },
+      
+  //   ],
+  // };
 
   return (
     <Container>
@@ -66,8 +96,9 @@ function Graph() {
             marker: { color: "red" },
           },
         ]}
-        layout={{ width: 720, height: 440, title: "Axis Bank" }}
+        layout={{ width: 1200, height: 500, title: "Axis Bank" }}
       />
+      {/* <Line data={data} /> */}
     </Container>
   );
 }

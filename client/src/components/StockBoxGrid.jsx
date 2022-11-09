@@ -3,6 +3,7 @@ import styled from "styled-components";
 import IndividualStockBox from "./IndividualStockBox";
 import { useState, useEffect } from "react";
 import stocksInfo from "../data";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: grid;
@@ -55,6 +56,7 @@ function StockBoxGrid() {
         
         return (
           <Box>
+          <Link to={`/stocks/${item.apiName}`} style={{"textDecoration":"none"}} >
             <IndividualStockBox
               key={item.id}
               name={item.name}
@@ -62,6 +64,7 @@ function StockBoxGrid() {
               price={item.price}
               profit={item.profit}
             />
+            </Link>
           </Box>
         );
       })}

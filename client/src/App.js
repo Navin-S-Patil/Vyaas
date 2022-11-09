@@ -27,9 +27,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/stocks" element={<Stocks />} />
-        <Route path="/stocks/:id" element={<Stock />} />
+        <Route path="/stocks/:apiName" element={<Stock />} />
         {/* For now Temp */}
-        <Route path="/stocks/axis" element={<Stock />} />
+        {/* <Route path="/stocks/axis" element={<Stock />} /> */}
+        {/*  */}
         <Route path="/user" element={<User />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Notfound />} />

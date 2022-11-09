@@ -7,16 +7,26 @@ import OurProducts from "../components/OurProducts";
 
 import Feedback from "../components/Feedback";
 
+import { motion } from "framer-motion";
+
 function Home() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0,transition: { duration: 0.5 } }}
+      // initial={{width:0}}
+      // animate={{width:'100%'}}
+      // exit={{x: "100%"}}
+    >
       <Navbar />
-      <FrontGraph/>
-      <OurProducts/>
-      <KeepInvesting/>
-      <Footer/>
+      <FrontGraph />
+      <OurProducts />
+      <KeepInvesting />
+      <Feedback />
+      <Footer />
       {/* <Feedback /> */}
-    </div>
+    </motion.div>
   );
 }
 

@@ -11,6 +11,7 @@ import Stock from "./pages/Stock";
 import User from "./pages/User";
 import Login from "./pages/Login";
 import Notfound from "./pages/Notfound";
+import AnimatedRoutes from "./AnimatedRoutes";
 
 function App() {
   const Wrapper = ({ children }) => {
@@ -23,18 +24,7 @@ function App() {
 
   return (
     <Wrapper>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/stocks" element={<Stocks />} />
-        <Route path="/stocks/:apiName" element={<Stock />} />
-        {/* For now Temp */}
-        {/* <Route path="/stocks/axis" element={<Stock />} /> */}
-        {/*  */}
-        <Route path="/user" element={<User />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Notfound />} />
-      </Routes>
+      <AnimatedRoutes/>
     </Wrapper>
   );
 }

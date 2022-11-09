@@ -4,16 +4,21 @@ import Graph from "../components/Graph";
 import GraphTop from "../components/GraphTop";
 import Navbar from "../components/Navbar";
 import Performance from "../components/Performance";
+import { motion } from "framer-motion";
 
 function Stock() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 ,transition: { duration: 0.5 }}}
+    >
       <Navbar />
       <GraphTop />
       <Graph />
       <Performance />
       <Footer />
-    </div>
+    </motion.div>
   );
 }
 

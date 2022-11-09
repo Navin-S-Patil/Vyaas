@@ -41,8 +41,8 @@ function Graph() {
   }, []);
 
   function fetchStock() {
-    const pointerToThis = this;
-    console.log(pointerToThis);
+    // const pointerToThis = this;
+    // console.log(pointerToThis);
     const API_KEY = "374IRTQTIUTYVL9A";
     let StockSymbol = "axisbank.bse";
     // let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=axisbank.BSE&outputsize=full&apikey=${API_KEY}`;

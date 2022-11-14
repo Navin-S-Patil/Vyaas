@@ -14,10 +14,7 @@ function Home() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0,transition: { duration: 0.5 } }}
-      // initial={{width:0}}
-      // animate={{width:'100%'}}
-      // exit={{x: "100%"}}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
       <Navbar />
       <FrontGraph />
@@ -25,7 +22,6 @@ function Home() {
       <KeepInvesting />
       <Feedback />
       <Footer />
-      {/* <Feedback /> */}
     </motion.div>
   );
 }

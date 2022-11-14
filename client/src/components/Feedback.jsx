@@ -113,7 +113,7 @@ function Feedback() {
     <Container>
       <Coloumn>
         <Text>
-          Haveing any questions ? <br />
+          Having any questions ? <br />
           Or suggestion{" "}
         </Text>
         <SmallText>

@@ -10,12 +10,13 @@ import { useLocation } from "react-router-dom";
 import Portfolio from "./pages/Portfolio";
 import Stocks from "./pages/Stocks";
 import Stock from "./pages/Stock";
-import User from "./pages/User";
 import Login from "./pages/Login";
+import User from "./pages/User";
 import Notfound from "./pages/Notfound";
 
 import { AnimatePresence } from "framer-motion";
 import AboutUs from "./pages/AboutUs";
+import Register from "./pages/Register";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function AnimatedRoutes() {
         {/*  */}
         <Route path="/user" element={<User />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<Notfound />} />
       </Routes>

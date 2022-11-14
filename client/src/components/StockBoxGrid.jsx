@@ -19,35 +19,36 @@ const Box = styled.div`
 
 function StockBoxGrid() {
 
-  // const [stock, setStock] = useState("AXISBANK");
+  const [stock, setStock] = useState("AXISBANK");
 
-  // const [stockData, setStockData] = useState({
-  //   price: 0,
-  //   profit: 0,
-  // });
+  const [stockData, setStockData] = useState({
+    price: 0,
+    profit: 0,
+  });
 
-  // useEffect(() => {
-  //   return () => {
-  //     fetch(
-  //       `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => {
+  
+  useEffect(() => {
+    return () => {
+      fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
+      )
+        .then((res) => res.json())
+        .then((data) => {
 
-  //         const price = data["Time Series (Daily)"];
-  //         const dataStock = price[Object.keys(price)[0]];
+          const price = data["Time Series (Daily)"];
+          const dataStock = price[Object.keys(price)[0]];
           
 
-  //         setStockData({
-  //           ...stockData,
-  //           price: dataStock["4. close"],
-  //           profit: dataStock["4. close"] - price[Object.keys(price)[1]]["4. close"],
-  //         });
+          setStockData({
+            ...stockData,
+            price: dataStock["4. close"],
+            profit: dataStock["4. close"] - price[Object.keys(price)[1]]["4. close"],
+          });
 
-  //         console.log(stockData);
-  //       });
-  //   };
-  // }, [stock]);
+          console.log(stockData);
+        });
+    };
+  }, [stock]);
 
 
   return (

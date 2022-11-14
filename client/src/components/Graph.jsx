@@ -36,6 +36,8 @@ function Graph() {
   const [stockChartXValues, setstockChartXValues] = useState([]);
   const [stockChartYValues, setstockChartYValues] = useState([]);
 
+  // const [password, setpassword] = useState("");
+
   useEffect(() => {
     fetchStock();
   }, []);

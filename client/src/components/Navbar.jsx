@@ -3,15 +3,20 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-
   const [userlog, setuserlog] = useState("Login");
 
   return (
     <div className="Center_row">
-      <Link to="/"><img src={logo} alt="logo" id="logo" className="logo" /></Link>
-      <input type="search" placeholder="Search" id="search" className="searchBox"/>
-      <button className="loginRegister loginButton">Login / Register</button>
-
+      <Link to="/">
+        <img src={logo} alt="logo" id="logo" className="logo" />
+      </Link>
+      <input
+        type="search"
+        placeholder="Search"
+        id="search"
+        className="searchBox"
+      />
+      <Link to="/login"><button className="loginRegister loginButton">Login / Register</button></Link>
     </div>
   );
 }

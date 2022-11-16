@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
-import { Link  as Linked } from "react-router-dom";
+import { Link as Linked } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logged } from "../redux/loggedInRedux";
 // import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-
 
 const Container = styled.div`
   width: 100vw;
@@ -78,22 +78,25 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
-  let LoggedIn = false
+  let LoggedIn = false;
 
   const handleClick = (e) => {
     e.preventDefault();
     LoggedIn = login(dispatch, { username, password });
+    console.log(LoggedIn);
+    if (LoggedIn) {
+      dispatch(logged());
+      navigate("/");
+    }
   };
-  
 
   useEffect(() => {
     if (LoggedIn) {
       return <Linked to="/" />;
     }
   }, [LoggedIn]);
-
 
   return (
     <Container>
@@ -114,7 +117,9 @@ const Login = () => {
           </Button>
           {error && <Error>Something went wrong...</Error>}
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link><Linked to="/register">CREATE A NEW ACCOUNT</Linked></Link>
+          <Link>
+            <Linked to="/register">CREATE A NEW ACCOUNT</Linked>
+          </Link>
         </Form>
       </Wrapper>
     </Container>

@@ -3,9 +3,13 @@ const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
-//REGISTER
+
+
 router.post("/register", async (req, res) => {
+  console.log("registration");
   const newUser = new User({
+    fname: req.body.fname,
+    lname: req.body.lname,
     username: req.body.username,
     email: req.body.email,
     password: CryptoJS.AES.encrypt(
@@ -20,10 +24,11 @@ router.post("/register", async (req, res) => {
     // return;
   } catch (err) {
     res.status(500).json(err);
+    console.log(err);
     // return;
   }
 });
-
+ 
 //LOGIN
 
 router.post("/login", async (req, res) => {
@@ -56,10 +61,12 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
 
     res.status(200).json({ ...others, accessToken });
-    // return;
+    console.log("login");
+    return;
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
-    // return;
+    return;
   }
 });
 

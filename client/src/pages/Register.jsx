@@ -94,12 +94,10 @@ const Register = () => {
       }, 5000);
       return setError("Passwords do not match");
     }
-    // console.log("Hello doign register");
 
     try {
-      // console.log("Hello doign register");
       const { data } = await axios.post(
-        "/api/auth/register",
+        "http://localhost:5000/api/auth/register",
         { fname, lname, username, email, password },
         config
       );

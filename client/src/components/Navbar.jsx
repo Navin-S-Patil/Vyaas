@@ -1,17 +1,38 @@
 import logo from "../images/logo.png";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { loggedIn } from "../redux/loggedInRedux";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import { loggedOut } from "../redux/userRedux";
 
 function Navbar() {
-  // const [userlog, setuserlog] = useState("Login");
+  const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.loggedIn.loggedIn);
+  const userInfo = useSelector((state) => state.user.logg);
+
+  // const userFName = useSelector((state) => state.user.userName);
+  const userFName = null;
+
+  const userId = useSelector((state) => state.user.currentUser);
+  // fetch("http://localhost:5000/api/auth/userdata", {
+  //   method: "GET",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: "Bearer " + userId,
+  //     _id: userId,
+  //   },
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //     userFName = data.fName;
+  //   });
+
+  const [user, setuser] = useState(userInfo);
 
   function handleLogout() {
-    localStorage.removeItem("persist:root");
-    window.location.reload();
+    dispatch(loggedOut());
+    setuser(false);
   }
 
   return (
@@ -26,15 +47,15 @@ function Navbar() {
         className="searchBox"
       />
       {user ? (
+        <button className="loginRegister loginButton" onClick={handleLogout}>
+          {userFName} Logout
+        </button>
+      ) : (
         <Link to="/login">
           <button className="loginRegister loginButton">
             Login / Register
           </button>
         </Link>
-      ) : (
-        <button className="loginRegister loginButton" onClick={handleLogout}>
-          Logout
-        </button>
       )}
     </div>
   );

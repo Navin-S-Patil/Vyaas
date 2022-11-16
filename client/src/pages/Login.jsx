@@ -5,7 +5,7 @@ import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as Linked } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { logged } from "../redux/loggedInRedux";
+import { logged } from "../redux/userRedux";
 // import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -88,6 +88,7 @@ const Login = () => {
     console.log(LoggedIn);
     if (LoggedIn) {
       dispatch(logged());
+      // fetching(dispatch, { username});
       navigate("/");
     }
   };

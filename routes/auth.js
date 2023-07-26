@@ -1,52 +1,51 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const CryptoJS = require("crypto-js");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-
-
+// Register
 router.post("/register", async (req, res) => {
-  console.log("registration");
-  const newUser = new User({
-    fname: req.body.fname,
-    lname: req.body.lname,
-    username: req.body.username,
-    email: req.body.email,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.PASS_SEC
-    ).toString(),
-  });
-
   try {
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
-    // return;
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
-    // return;
-  }
-});
- 
-//LOGIN
+    const { fname, lname, username, email, password } = req.body;
 
-router.post("/login", async (req, res) => {
-  // console.log("login");
-  try {
-    const user = await User.findOne({ username: req.body.username });
-    if (!user) {
-      return res.status(401).json("Wrong credentials!");
+    // Check if the user already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(409).json({ error: "Username already exists." });
     }
 
-    const hashedPassword = CryptoJS.AES.decrypt(
-      user.password,
-      process.env.PASS_SEC
-    );
-    const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    if(OriginalPassword !== req.body.password){
-      return res.status(401).json("Wrong Password!");
+    const newUser = new User({
+      fname,
+      lname,
+      username,
+      email,
+      password: hashedPassword,
+    });
+
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+// Login
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ error: "Invalid username or password." });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid username or password." });
     }
 
     const accessToken = jwt.sign(
@@ -58,28 +57,13 @@ router.post("/login", async (req, res) => {
       { expiresIn: "3d" }
     );
 
-    const { password, ...others } = user._doc;
+    const { password: _, ...others } = user._doc;
 
     res.status(200).json({ ...others, accessToken });
-    console.log("login");
-    return;
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-    return;
+    console.error(err);
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
 module.exports = router;
-
-
-/*
-buy / order / purches
-sell 
-profit - loss
-data-fetch
-user add money (in month once) or fixed
-
-change password
-
-*/

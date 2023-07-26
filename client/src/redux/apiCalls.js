@@ -14,12 +14,3 @@ export const login = async (dispatch, user) => {
   }
 };
 
-// export const fetching = async (dispatch, user) => {
-//   dispatch(loginStart());
-//   try {
-//     const res = await axios.get("http://localhost:5000/api/auth/userdata", user);
-//     dispatch(fetchUser(res.data));
-//   } catch (err) {
-//     dispatch(fetchUser(null));
-//   }
-// };

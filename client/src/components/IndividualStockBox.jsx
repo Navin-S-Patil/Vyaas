@@ -62,10 +62,7 @@ function IndividualStockBox(props) {
   let profit = props.profit;
   let price = props.price;
 
-  console.log(props.symbol);
 
-  // const symbol = props.symbol["axis"];
-  // console.log(symbol);
    
 
   return <Container>

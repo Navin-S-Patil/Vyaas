@@ -1,28 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
-import { useState } from "react";
-import { Line } from "react-chartjs-2";
+import axios from "axios";
 import styled from "styled-components";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 const Container = styled.div`
   display: flex;
@@ -33,61 +12,42 @@ const Container = styled.div`
 `;
 
 function Graph() {
-  const [stockChartXValues, setstockChartXValues] = useState([]);
-  const [stockChartYValues, setstockChartYValues] = useState([]);
-
-  // const [password, setpassword] = useState("");
+  const [stockChartXValues, setStockChartXValues] = useState([]);
+  const [stockChartYValues, setStockChartYValues] = useState([]);
 
   useEffect(() => {
     fetchStock();
   }, []);
 
   function fetchStock() {
-    // const pointerToThis = this;
-    // console.log(pointerToThis);
-    const API_KEY = "374IRTQTIUTYVL9A";
-    let StockSymbol = "axisbank.bse";
-    // let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=axisbank.BSE&outputsize=full&apikey=${API_KEY}`;
-    let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
+    const API_KEY = "F7R9X5Z4BDSDRHHR";
+    const StockSymbol = "axisbank.BSE";
     let stockChartXValuesFunction = [];
     let stockChartYValuesFunction = [];
 
-    fetch(API_Call)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
+    axios
+      .get(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&outputsize=full&apikey=${API_KEY}`
+      )
+      .then((response) => {
+        const data = response.data["Time Series (Daily)"];
+        console.log(data)
 
-        for (var key in data["Time Series (Daily)"]) {
+        for (var key in data) {
           stockChartXValuesFunction.push(key);
-          stockChartYValuesFunction.push(
-            data["Time Series (Daily)"][key]["1. open"]
-          );
+          stockChartYValuesFunction.push(parseFloat(data[key]["1. open"]));
         }
 
-        setstockChartXValues(...stockChartXValues,stockChartXValuesFunction);
-        setstockChartYValues(...stockChartYValues,stockChartYValuesFunction);
+        setStockChartXValues(stockChartXValuesFunction);
+        setStockChartYValues(stockChartYValuesFunction);
+      })
+      .catch((error) => {
+        console.error("Error fetching stock data:", error);
       });
   }
 
-  // other data visulation graph
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       label: 'Dataset 1',
-  //       data: [{x: stockChartXValues}, {y: stockChartYValues}],
-  //       borderColor: 'rgb(255, 99, 132)',
-  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  //     },
-      
-  //   ],
-  // };
-
   return (
     <Container>
-      {/* <h1>Stock Market</h1> */}
       <Plot
         data={[
           {
@@ -100,7 +60,6 @@ function Graph() {
         ]}
         layout={{ width: 1200, height: 500, title: "Axis Bank" }}
       />
-      {/* <Line data={data} /> */}
     </Container>
   );
 }

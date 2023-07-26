@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loggedOut } from "../redux/userRedux";
 
-function Navbar() {
+function 
+Navbar() {
   const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.user.logg);

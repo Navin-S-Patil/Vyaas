@@ -45,7 +45,7 @@ function StockBoxGrid() {
             profit: dataStock["4. close"] - price[Object.keys(price)[1]]["4. close"],
           });
 
-          console.log(stockData);
+          
         });
     };
   }, [stock]);

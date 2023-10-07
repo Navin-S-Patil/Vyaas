@@ -1,0 +1,56 @@
+mongoose
+  .connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 30000 })
+  .then(() => console.log("DB Connection Successfull!"))
+  .catch((err) => {
+    console.log(err);
+  });
+
+const companyNames = [
+
+  "BAJAJFINSV",
+  "BPCL",
+  "Cipla",
+  "JSWSTEEL",
+  "ICICIBANK",
+  "GAIL",
+];
+
+// companyNames.map((name) => {
+// });
+addStocksData("RELIANCE");
+
+// addStocksData();
+
+async function addStocksData(name) {
+  // const name = "BHARTIARTL";
+
+  console.log("Adding stocks data... " + name);
+
+  const data = await axios.get(
+    `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${name}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
+  );
+
+  const timeSeries = data.data["Time Series (Daily)"];
+  // console.log(timeSeries["202103-31"]["4. close"]);
+
+  const priceData = Object.entries(timeSeries).map(([date, price]) => {
+    return { date: new Date(date), price: price["4. close"] };
+  });
+
+  try {
+    const stock = await Stock.create({
+      symbol: `${name}.BSE`,
+      companyName: `${name}`,
+      historicalData: priceData,
+      quantity: 1000,
+    });
+
+    console.log("Stock data added");
+  } catch (error) {
+    console.log(error);
+  }
+
+  // console.log(priceData);
+}
+
+// addStocksData();

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Navin-S-Patil/Vyaas#readme",
   "dependencies": {
+    "axios": "^1.5.1",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",

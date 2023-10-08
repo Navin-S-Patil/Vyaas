@@ -49,8 +49,8 @@ async function updateStock(stock, index) {
 
 async function updateStocksData() {
   try {
-    await mongoose.connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 30000 });
-    console.log("DB Connection Successful!");
+    // await mongoose.connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 30000 });
+    // console.log("DB Connection Successful!");
 
     console.log("Updating stocks started");
 
@@ -60,10 +60,12 @@ async function updateStocksData() {
     }
 
     // Close the database connection
-    mongoose.connection.close();
+    // mongoose.connection.close();
   } catch (error) {
     console.error("Error:", error.message);
   }
 }
 
-updateStocksData();
+// updateStocksData();
+
+module.exports = updateStocksData;

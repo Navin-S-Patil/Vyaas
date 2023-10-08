@@ -13,13 +13,3 @@ const list = [
 ];
 
 module.exports = list;
-// { symbol: 'AXISBANK.BSE' },
-//   { symbol: 'TCS.BSE' },
-//   { symbol: 'BHARTIARTL.BSE' },
-//   { symbol: 'BPCL.BSE' },
-//   { symbol: 'BAJAJFINSV.BSE' },
-//   { symbol: 'cipla.BSE' },
-//   { symbol: 'jswsteel.BSE' },
-//   { symbol: 'icicibank.BSE' },
-//   { symbol: 'gail.BSE' },
-//   { symbol: 'RELIANCE.BSE' }

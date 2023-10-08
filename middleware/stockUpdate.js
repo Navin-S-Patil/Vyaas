@@ -5,52 +5,65 @@ require("dotenv").config({ path: "../config.env" });
 
 const mongoose = require("mongoose");
 
-// update stocks data
-async function updateStocksData() {
-  //for now testing purpose
-  await mongoose
-    .connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 30000 })
-    .then(() => console.log("DB Connection Successfull!"))
-    .catch((err) => {
-      console.log(err);
+async function getStockData(stock) {
+  const response = await axios.get(
+    `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}&outputsize=full&apikey=${process.env.API_KEY}`
+  );
+  return response.data;
+}
+
+async function formatHistoricalData(stockData) {
+  const historicalData = [];
+  for (let key in stockData["Time Series (Daily)"]) {
+    historicalData.push({
+      date: key,
+      price: stockData["Time Series (Daily)"][key]["4. close"],
     });
+  }
+  return historicalData;
+}
 
-  console.log("Updating stocks started");
+async function updateStock(stock, index) {
+  try {
+    const stocksData = await getStockData(stock);
+    const historicalData = await formatHistoricalData(stocksData);
 
-  
-  // get stocks data from API
-  list.forEach(async (stock) => {
-
-    const stocksData = await axios.get(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}&outputsize=full&apikey=${process.env.API_KEY}`
-      );
-      
-
-    // get historical data
-    const historicalData = [];
-    for (let key in stocksData.data["Time Series (Daily)"]) {
-      historicalData.push({
-        date: key,
-        price: stocksData.data["Time Series (Daily)"][key]["4. close"],
-      });
-    }
-
-    // update stock data
     await Stock.findOneAndUpdate(
       { symbol: stock },
       {
-        // companyName: stocksData.data["Meta Data"]["2. Symbol"],
         historicalData: historicalData,
       }
     );
-  });
-  // const stocksData = await axios.get(
-  //   `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=airtel.BSE&outputsize=full&apikey=${process.env.API_KEY}`
-  // );
+
+    console.log(stock + " updated");
+
+    // Introduce a 1-minute delay after every five API calls
+    if ((index + 1) % 5 === 0) {
+      console.log("Waiting for 1 minute...");
+      await new Promise(resolve => setTimeout(resolve, 60000));
+    }
+  } catch (error) {
+    console.error(`Error updating ${stock}:`, error.message);
+  }
 }
 
-// Update stocks data every 25 hours (25 * 60 * 60 * 1000 milliseconds)
-// const updateInterval = 25 * 60 * 60 * 1000;
-// setInterval(updateStocksData, updateInterval);
+async function updateStocksData() {
+  try {
+    await mongoose.connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 30000 });
+    console.log("DB Connection Successful!");
+
+    console.log("Updating stocks started");
+
+    // Use for...of loop with index to track API calls
+    for (let index = 0; index < list.length; index++) {
+      await updateStock(list[index], index);
+    }
+
+    // Close the database connection
+    mongoose.connection.close();
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+}
 
 updateStocksData();

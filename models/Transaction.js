@@ -1,19 +1,12 @@
 const mongoose = require("mongoose");
 
-const TransactionSchema = new mongoose.Schema(
-  {
-    userId: { type: String, required: true, index: true },
-    stockId: { type: String, required: true, index: true },
-    quantity: { type: Number, required: true, min: 1 },
-    transactionDate: { type: Date, required: true },
-    transactionType: {
-      type: String,
-      required: true,
-      enum: ["buy", "sell"],
-    },
-    price: { type: Number, required: true, min: 0 },
-  },
-  { timestamps: true }
-);
+const transactionSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  stock: { type: mongoose.Schema.Types.ObjectId, ref: "Stock", required: true },
+  type: { type: String, enum: ["BUY", "SELL"], required: true },
+  quantity: { type: Number, required: true },
+  price: { type: Number, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
 
-module.exports = mongoose.model("Transaction", TransactionSchema);
+module.exports = mongoose.model("Transaction", transactionSchema);

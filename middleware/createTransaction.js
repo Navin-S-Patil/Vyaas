@@ -71,8 +71,6 @@ const updateStockInPortfolio = async (
   }
 };
 
-
-
 const manageStockCount = async (stock, quantity, type) => {
   if (type === "BUY") {
     stock.quantity -= Number(quantity);
@@ -115,7 +113,7 @@ const createTransaction = async (req, res, type) => {
     const portfolio = await Portfolio.findOne({ user: user._id });
 
     updateStockInPortfolio(portfolio, existingStock, type, quantity, price);
-    
+
     manageStockCount(existingStock, quantity, type);
 
     await user.save();

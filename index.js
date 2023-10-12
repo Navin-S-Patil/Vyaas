@@ -8,6 +8,8 @@ const authRoute = require("./routes/auth");
 const userData = require("./routes/userData");
 const stocksDataFetching = require("./routes/stocksDataFetching");
 const manualStockRefresh = require("./routes/manualStockRefresh");
+const transaction = require("./routes/transaction");
+
 const updateStocksData = require("./middleware/stockUpdate");
 
 dotenv.config();
@@ -26,6 +28,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/auth", userData);
 app.use("/api/", stocksDataFetching);
+app.use("/api/", transaction);
 
 //for testing and individual call to update stock data
 app.use("/api/", manualStockRefresh);

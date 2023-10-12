@@ -18,16 +18,7 @@ const UserSchema = new mongoose.Schema({
   },
   password: { type: String, required: true },
   balance: { type: Number, default: 100000 }, // Initial virtual balance for paper trading
-  stocks: [
-    {
-      stock: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Stock",
-        required: true,
-      },
-      quantity: { type: Number, required: true },
-    },
-  ],
+  portfolio: { type: mongoose.Schema.Types.ObjectId, ref: 'Portfolio', required: true },
 });
 
 module.exports = mongoose.model("User", UserSchema);

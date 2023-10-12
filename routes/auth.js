@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const Portfolio = require("../models/Portfolio");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -23,8 +24,14 @@ router.post("/register", async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      // portfolio : new Portfolio({ user: newUser._id }),
     });
 
+    const newPortfolio = new Portfolio({ user: newUser._id });
+    newUser.portfolio = newPortfolio._id;
+
+    //save
+    await newPortfolio.save();
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (err) {

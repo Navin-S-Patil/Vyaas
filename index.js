@@ -9,6 +9,7 @@ const userData = require("./routes/userData");
 const stocksDataFetching = require("./routes/stocksDataFetching");
 const manualStockRefresh = require("./routes/manualStockRefresh");
 const transaction = require("./routes/transaction");
+const portfolioData = require("./routes/portfolioData");
 
 const updateStocksData = require("./middleware/stockUpdate");
 
@@ -27,6 +28,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/auth", userData);
+app.use("/api/auth", portfolioData);
 app.use("/api/", stocksDataFetching);
 app.use("/api/", transaction);
 

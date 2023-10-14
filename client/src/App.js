@@ -4,7 +4,9 @@ import { useLocation } from "react-router-dom";
 
 //pages
 
+
 import AnimatedRoutes from "./AnimatedRoutes";
+
 
 function App() {
   const Wrapper = ({ children }) => {

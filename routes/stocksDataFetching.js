@@ -2,11 +2,11 @@ const router = require("express").Router();
 const Stock = require("../models/Stock");
 
 router.get("/stocks", async (req, res) => {
-  if (req.headers.key !== process.env.KEY)
+  if (req.headers.key !== process.env.UPDATE_KEY)
     return res.status(401).send("Access Denied");
 
   try {
-    const { symbol } = req.body;
+    const { symbol } = req.headers;
 
     // Make sure 'symbol' is provided before querying the database
     if (!symbol) {

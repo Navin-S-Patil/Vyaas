@@ -8,7 +8,6 @@ router.get("/portfoliodata", async (req, res) => {
 
     try {
         const portfolio = await Portfolio.findOne({ user: req.headers._id });
-
         if(!portfolio) {
             return res.status(201).send({message : "Portfolio not found"});
         }

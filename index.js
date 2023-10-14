@@ -32,6 +32,8 @@ app.use("/api/auth", portfolioData);
 app.use("/api/", stocksDataFetching);
 app.use("/api/", transaction);
 
+
+
 //for testing and individual call to update stock data
 app.use("/api/", manualStockRefresh);
 

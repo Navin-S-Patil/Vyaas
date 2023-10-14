@@ -3,8 +3,6 @@ import React from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
-import { useLayoutEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 //pages
 import Portfolio from "./pages/Portfolio";
@@ -17,9 +15,11 @@ import Notfound from "./pages/Notfound";
 import { AnimatePresence } from "framer-motion";
 import AboutUs from "./pages/AboutUs";
 import Register from "./pages/Register";
+import Timepass from "./components/Timepass";
+import Timepass2 from "./components/Timepass2";
 
 function AnimatedRoutes() {
-  const location = useLocation();
+
   return (
     <AnimatePresence>
       <Routes>
@@ -35,6 +35,8 @@ function AnimatedRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<Notfound />} />
+        <Route path="/timepass" element={<Timepass/>} />
+        <Route path="/timepass2" element={<Timepass2/>} />
       </Routes>
     </AnimatePresence>
   );

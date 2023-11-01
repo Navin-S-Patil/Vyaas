@@ -1,5 +1,5 @@
 const Stock = require("../models/Stock");
-const list = require("./stockData");
+const list = require("../utils/stockData");
 const axios = require("axios");
 require("dotenv").config({ path: "../config.env" });
 

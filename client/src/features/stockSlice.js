@@ -1,35 +1,63 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import list from "../../../utils/stockNames"
+import list from "../../../utils/stockData";
+// const list = require("../../../utils/stockData");
+// const createAsyncThunk = require("@reduxjs/toolkit").createAsyncThunk;
+// const createSlice = require("@reduxjs/toolkit").createSlice;
+// const axios = require("axios");
 
-// const axios = require('axios');
-// const list = require('../../../utils/stockData')
+const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
+  try {
+    const promises = list.map(async (item) => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/stock/", {
+          headers: {
+            "Content-Type": "application/json",
+            key: "RAIT",
+            symbol: item,
+          },
+        });
+        return [item, response.data];
+      } catch (error) {
+        console.error(`Error fetching data for ${item}:`, error.message);
+        return [item, null];
+      }
+    });
 
-const initialState = getInitialStock();
+    const results = await Promise.all(promises);
+    const myMap = new Map(results);
+    return myMap;
+  } catch (error) {
+    console.error("Error:", error.message);
+    throw error;
+  }
+});
+
+// Create a Redux Toolkit slice
+const stockSlice = createSlice({
+  name: "stocks",
+  initialState: {},
+  reducers: {
+    // Add other synchronous reducers if needed
+    setInitialStock: (state, action) => {
+      // Update the state with the fetched data if needed
+      state = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    // Handle the fulfilled action for getInitialStock
+    builder.addCase(getInitialStock.fulfilled, (state, action) => {
+      // Update the state with the fetched data if needed
+      state = action.payload;
+    });
+  },
+});
+
+export const { actions, reducer } = stockSlice;
 
 
-
-async function getInitialStock(){
-    var myMap = new Map();
-
-        list.map((item)=>{
-            try {
-                const response = await axios.get("https://xzxsyc-5000.csb.app/api/stock/", {
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                        key: 'RAIT',
-                                        symbol : item,
-                                    }
-                                });
-                myMap.set(item,response.data);
-        
-            } catch (error) {
-                console.error("Error fetching data:", error.message);
-            }
-            
-        })
-            return myMap;
-    
-}
-
-
+// module.exports = {
+//   reducer: stockSlice.reducer,
+//   getInitialStock: getInitialStock,
+// };

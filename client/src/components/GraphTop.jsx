@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +17,6 @@ const Container = styled.div`
   font-weight: 1000;
   margin: 1.5rem 2rem;
 `;
-
 
 const Address = styled.p`
   color: #565656;
@@ -54,8 +54,11 @@ const StockName = styled.p`
   margin: 1rem 2rem;
 `;
 
-
 function GraphTop(props) {
+  const stock = useSelector((state) => state.stock);
+
+  const companyName = stock.get(props.symbol)[0].companyName;
+
   return (
     <Container>
       <Address>
@@ -66,12 +69,12 @@ function GraphTop(props) {
         <Link to={"/stocks/"} style={{ textDecoration: "none" }}>
           {" "}
           stocks &gt;
-        </Link>{" "}
-        Axis Bank
+        </Link>
+        {companyName}
       </Address>
       <SubContainer>
-        <Logo src="/images/stockLogos/axis.png" />
-        <StockName>Axis Bank</StockName>
+        <Logo src={`/images/stockLogos/${props.symbol}.png`} />
+        <StockName>{companyName}</StockName>
       </SubContainer>
     </Container>
   );

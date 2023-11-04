@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useSelector } from "react-redux";
 
 ChartJS.register(
   CategoryScale,
@@ -21,95 +22,83 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+// ... (other imports)
 
-
-
-const Timepass2 = () => {
+function Timepass2(props) {
   const [stockData, setStockData] = useState();
   const [labels, setLabels] = useState();
   const [selectedRange, setSelectedRange] = useState("1week");
-  const [boundary, setboundary] = useState({ min: 0, max: 0 });
+  const [boundary, setBoundary] = useState({ min: 0, max: 0 });
+
+  const stocks = useSelector((state) => state.stock);
+  const individualStock = stocks.get(props.symbol);
 
   useEffect(() => {
     const dataFetch = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/stocks/", {
-          headers: {
-            "Content-Type": "application/json",
-            key: process.env.REACT_APP_KEY,
-            symbol: "TCS.BSE",
-          },
-        });
+      setStockData(individualStock[0]);
 
-        const data = response.data[0];
-        setStockData(data);
+      let startDate = new Date();
 
-        let startDate = new Date();
-
-        // Adjust start date based on the selected range
-        switch (selectedRange) {
-          case "1week":
-            startDate.setDate(startDate.getDate() - 7);
-            break;
-          case "1month":
-            startDate.setMonth(startDate.getMonth() - 1);
-            break;
-          case "1year":
-            startDate.setFullYear(startDate.getFullYear() - 1);
-            break;
-          default:
-            break;
-        }
-
-        setLabels(
-          data.historicalData
-            .filter((item) => new Date(item.date) > startDate)
-            .map((item) => {
-              setboundary((prev) => {
-                if (prev.min === 0) {
-                  return {
-                    min: item.price,
-                    max: item.price,
-                  };
-                }
-                if (prev.min > item.price) {
-                  return {
-                    ...prev,
-                    min: item.price,
-                  };
-                }
-                if (prev.max < item.price) {
-                  return {
-                    ...prev,
-                    max: item.price,
-                  };
-                }
-                return prev;
-              });
-              return item.date.split("T")[0].split("-").reverse().join("-");
-            })
-        );
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      // Adjust start date based on the selected range
+      switch (selectedRange) {
+        case "1week":
+          startDate.setDate(startDate.getDate() - 7);
+          break;
+        case "1month":
+          startDate.setMonth(startDate.getMonth() - 1);
+          break;
+        case "1year":
+          startDate.setFullYear(startDate.getFullYear() - 1);
+          break;
+        default:
+          break;
       }
+
+      setLabels(
+        individualStock[0].historicalData
+          .filter((item) => new Date(item.date) > startDate)
+          .map((item) => {
+            setBoundary((prev) => {
+              if (prev.min === 0) {
+                return {
+                  min: item.price,
+                  max: item.price,
+                };
+              }
+              if (prev.min > item.price) {
+                return {
+                  ...prev,
+                  min: item.price,
+                };
+              }
+              if (prev.max < item.price) {
+                return {
+                  ...prev,
+                  max: item.price,
+                };
+              }
+              return prev;
+            });
+            return item.date.split("T")[0].split("-").reverse().join("-");
+          })
+      );
     };
 
     dataFetch();
-  }, [selectedRange]);
+  }, [selectedRange, individualStock]);
 
   const handleRangeChange = (range) => {
     setSelectedRange(range);
   };
 
   const data = {
-    labels,
+    labels: labels,
     datasets: [
       {
-        label: "TCS",
+        label: individualStock[0].companyName,
         data: stockData
           ? stockData.historicalData.map((item) => item.price)
           : [],
-        // data : [1,2,3,4,5,6,7,8,9,10],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
@@ -145,6 +134,6 @@ const Timepass2 = () => {
       <Line options={options} data={data} />
     </div>
   );
-};
+}
 
 export default Timepass2;

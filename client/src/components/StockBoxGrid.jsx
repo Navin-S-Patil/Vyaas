@@ -2,8 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import IndividualStockBox from "./IndividualStockBox";
 import { useState, useEffect } from "react";
-import stocksInfo from "../data";
+// import stocksInfo from "../data";
+import list from "../utils/stockData";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   display: grid;
@@ -18,53 +21,25 @@ const Box = styled.div`
 `;
 
 function StockBoxGrid() {
-
-  const [stock, setStock] = useState("AXISBANK");
-
-  const [stockData, setStockData] = useState({
-    price: 0,
-    profit: 0,
-  });
-
-  
-  useEffect(() => {
-    return () => {
-      fetch(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stock}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-
-          const price = data["Time Series (Daily)"];
-          const dataStock = price[Object.keys(price)[0]];
-          
-
-          setStockData({
-            ...stockData,
-            price: dataStock["4. close"],
-            profit: dataStock["4. close"] - price[Object.keys(price)[1]]["4. close"],
-          });
-
-          
-        });
-    };
-  }, [stock]);
-
+  const [stock, setStock] = useState(useSelector((state) => state.stock));
 
   return (
     <Container>
-      {stocksInfo.map((item) => {
-        
+      {list.map((item, index) => {
+        const name = stock.get(item)[0].companyName;
+        const symbol = stock.get(item)[0].symbol;
+        const price = stock.get(item)[0].historicalData[0].price;
+        const profit = price - stock.get(item)[0].historicalData[1].price;
+
         return (
-          <Box>
-          <Link to={`/stocks/${item.apiName}`} style={{"textDecoration":"none"}} >
-            <IndividualStockBox
-              key={item.id}
-              name={item.name}
-              symbol={item.symbol}
-              price={item.price}
-              profit={item.profit}
-            />
+          <Box key={index}>
+            <Link to={`/stocks/${item}`} style={{ textDecoration: "none" }}>
+              <IndividualStockBox
+                name={name}
+                symbol={symbol}
+                price={price}
+                profit={profit}
+              />
             </Link>
           </Box>
         );

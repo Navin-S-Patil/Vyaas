@@ -3,6 +3,7 @@ import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link as Linked } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -50,6 +51,13 @@ const Agreement = styled.span`
   margin: 20px 0px;
 `;
 
+const Link = styled.a`
+  margin: 5px 0px;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
 const Button = styled.button`
   width: 40%;
   border: none;
@@ -59,27 +67,27 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const FlexCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     fname: "",
     lname: "",
-    username:"",
+    username: "",
     email: "",
     password: "",
     reEnterPassword: "",
   });
   const [error, setError] = useState("");
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("authToken")) {
-  //     history.push("/");
-  //   }
-  // }, [history]);
-
   async function registerHandler(e) {
     e.preventDefault();
-    const { fname, lname,username, email, password, reEnterPassword } = user;
+    const { fname, lname, username, email, password, reEnterPassword } = user;
 
     const config = {
       headers: {
@@ -97,12 +105,11 @@ const Register = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "http://localhost:5000/api/users/",
         { fname, lname, username, email, password },
         config
       );
 
-      // localStorage.setItem("authToken",data.token);
       navigate("/login");
     } catch (error) {
       setError(error.response.data.error);
@@ -171,8 +178,14 @@ const Register = () => {
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          {error && <span>{error}</span>}
-          <Button onClick={registerHandler}>CREATE</Button>
+          <FlexCol>
+            <Link>
+              <Linked to="/logIn">ALREADY HAVE AN ACCOUNT</Linked>
+            </Link>
+
+            {error && <span>{error}</span>}
+            <Button onClick={registerHandler}>CREATE</Button>
+          </FlexCol>
         </Form>
       </Wrapper>
     </Container>

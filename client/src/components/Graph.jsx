@@ -11,7 +11,7 @@ const Container = styled.div`
   margin: 2rem;
 `;
 
-function Graph() {
+function Graph(props) {
   const [stockChartXValues, setStockChartXValues] = useState([]);
   const [stockChartYValues, setStockChartYValues] = useState([]);
 
@@ -31,7 +31,7 @@ function Graph() {
       )
       .then((response) => {
         const data = response.data["Time Series (Daily)"];
-        console.log(data)
+        // console.log(data)
 
         for (var key in data) {
           stockChartXValuesFunction.push(key);

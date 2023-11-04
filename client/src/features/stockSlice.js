@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import list from "../../../utils/stockData";
-// const list = require("../../../utils/stockData");
-// const createAsyncThunk = require("@reduxjs/toolkit").createAsyncThunk;
-// const createSlice = require("@reduxjs/toolkit").createSlice;
-// const axios = require("axios");
+import list from "../utils/stockData";
 
 const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
   try {
@@ -42,22 +38,20 @@ const stockSlice = createSlice({
     // Add other synchronous reducers if needed
     setInitialStock: (state, action) => {
       // Update the state with the fetched data if needed
-      state = action.payload;
+      return action.payload;
     },
   },
   extraReducers: (builder) => {
     // Handle the fulfilled action for getInitialStock
     builder.addCase(getInitialStock.fulfilled, (state, action) => {
       // Update the state with the fetched data if needed
-      state = action.payload;
+      // console.log(action.payload)
+      return action.payload;
     });
   },
 });
 
-export const { actions, reducer } = stockSlice;
-
-
-// module.exports = {
-//   reducer: stockSlice.reducer,
-//   getInitialStock: getInitialStock,
-// };
+// Export actions
+export default stockSlice.reducer;
+export const { setInitialStock } = stockSlice.actions;
+export { getInitialStock };

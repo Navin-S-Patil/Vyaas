@@ -18,59 +18,58 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-    width: 4rem;
-    height: 4rem;
-    object-fit: contain;
-    margin-top: 1rem;
-    margin-left: 2rem;
-    border: 1px solid grey;
-    border-radius: 5px;
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  border: 1px solid grey;
+  border-radius: 5px;
 `;
 
 const StockName = styled.p`
-    font-size: 1.5rem;
-    font-weight: 1000;
-    font-family: "Inter";
-    font-style: normal;
-    color: #000;
-    margin: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: 1000;
+  font-family: "Inter";
+  font-style: normal;
+  color: #000;
+  margin: 1rem 2rem;
 `;
 
 const Price = styled.p`
-    font-size: 1.5rem;
-    font-weight: 1000;
-    font-family: "Inter";
-    font-style: normal;
-    color: #000;
-    margin: 0.5rem 2rem;
+  font-size: 1.5rem;
+  font-weight: 1000;
+  font-family: "Inter";
+  font-style: normal;
+  color: #000;
+  margin: 0.5rem 2rem;
 `;
 
-const Profit  = styled.p`
-
-    font-size: 1.5rem;
-    font-weight: 1000;
-    font-family: "Inter";
-    font-style: normal;
-    color: #000;
-    margin: 0.5rem 2rem;
-    margin-bottom: 1rem;
+const Profit = styled.p`
+  font-size: 1.5rem;
+  font-weight: 1000;
+  font-family: "Inter";
+  font-style: normal;
+  color: #000;
+  margin: 0.5rem 2rem;
+  margin-bottom: 1rem;
 `;
-
 
 function IndividualStockBox(props) {
-
   let profit = props.profit;
   let price = props.price;
 
-
-   
-
-  return <Container>
-    <Logo src={props.symbol} alt="StockLogo" />
-    <StockName>{props.name}</StockName>
-    <Price>₹{price}</Price>
-    <Profit style={ profit>0 ? {color : "green"} : {color : "red"}} >{profit>0 ? `+` : null}{profit.toFixed(2)}</Profit>
-  </Container>;
+  return (
+    <Container>
+      <Logo src={`/images/stockLogos/${props.symbol}.png`} alt="StockLogo" />
+      <StockName>{props.name}</StockName>
+      <Price>₹{price}</Price>
+      <Profit style={profit > 0 ? { color: "green" } : { color: "red" }}>
+        {profit > 0 ? `+` : null}
+        {profit.toFixed(2)}
+      </Profit>
+    </Container>
+  );
 }
 
 export default IndividualStockBox;

@@ -3,36 +3,24 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import { loggedOut } from "../redux/userRedux";
+// import { loggedOut } from "../redux/userRedux";
 
 function 
 Navbar() {
   const dispatch = useDispatch();
 
-  const userInfo = useSelector((state) => state.user.logg);
+  // const userInfo = useSelector((state) => state.user.logg);
 
   // const userFName = useSelector((state) => state.user.userName);
   const userFName = null;
 
-  const userId = useSelector((state) => state.user.currentUser);
-  // fetch("http://localhost:5000/api/auth/userdata", {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: "Bearer " + userId,
-  //     _id: userId,
-  //   },
-  // })
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     console.log(data);
-  //     userFName = data.fName;
-  //   });
+  // const userId = useSelector((state) => state.user.currentUser);
+  
 
-  const [user, setuser] = useState(userInfo);
+  const [user, setuser] = useState(true);
 
   function handleLogout() {
-    dispatch(loggedOut());
+    // dispatch(loggedOut());
     setuser(false);
   }
 

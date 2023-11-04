@@ -77,7 +77,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { isFetching, error } = useSelector((state) => state.user);
+  // const { isFetching, error } = useSelector((state) => state.user);
   let navigate = useNavigate();
 
   let LoggedIn = false;
@@ -113,7 +113,7 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button onClick={handleClick} disabled={isFetching}>
+          <Button onClick={handleClick} >
             LOGIN
           </Button>
           {error && <Error>Something went wrong...</Error>}

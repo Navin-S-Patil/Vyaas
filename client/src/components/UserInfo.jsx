@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -181,7 +181,7 @@ function UserInfo() {
         </Inline>
 
         {/* <Input placeholder="Password" /> */}
-        <Button>Update Password</Button>
+        <Button onClick={handleSubmit}>Update Password</Button>
       </Container>
     </>
   );

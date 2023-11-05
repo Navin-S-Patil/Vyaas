@@ -12,6 +12,9 @@ import {
   Legend,
 } from "chart.js";
 import { useSelector } from "react-redux";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import styled from "styled-components";
 
 ChartJS.register(
   CategoryScale,
@@ -22,9 +25,46 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-// ... (other imports)
 
-function Timepass2(props) {
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+`;
+
+
+
+const SubContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: left;
+`;
+
+const Logo = styled.img`
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: contain;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  /* border: 1px solid grey; */
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 0.5rem;
+`;
+
+const StockName = styled.p`
+  font-size: 1.8rem;
+  font-weight: 1000;
+  font-family: "Inter";
+  font-style: normal;
+  color: #fff;
+  margin: 1rem 2rem;
+`;
+
+function WrokignGraph(props) {
   const [stockData, setStockData] = useState();
   const [labels, setLabels] = useState();
   const [selectedRange, setSelectedRange] = useState("1week");
@@ -126,14 +166,22 @@ function Timepass2(props) {
 
   return (
     <div>
-      <div>
-        <button onClick={() => handleRangeChange("1week")}>1 Week</button>
-        <button onClick={() => handleRangeChange("1month")}>1 Month</button>
-        <button onClick={() => handleRangeChange("1year")}>1 Year</button>
-      </div>
-      <Line options={options} data={data} />
+      <SubContainer>
+        <Logo src={`/images/stockLogos/${props.symbol}.png`} />
+        <StockName>{individualStock[0].companyName}</StockName>
+      </SubContainer>
+      <Container>
+        <Line options={options} data={data} />
+        <Stack direction="row" spacing={1}>
+          <IconButton onClick={() => handleRangeChange("1week")}>7D</IconButton>
+          <IconButton onClick={() => handleRangeChange("1month")}>
+            1M
+          </IconButton>
+          <IconButton onClick={() => handleRangeChange("1year")}>1Y</IconButton>
+        </Stack>
+      </Container>
     </div>
   );
 }
 
-export default Timepass2;
+export default WrokignGraph;

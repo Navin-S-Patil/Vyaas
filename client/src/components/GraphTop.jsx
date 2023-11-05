@@ -72,10 +72,10 @@ function GraphTop(props) {
         </Link>
         {companyName}
       </Address>
-      <SubContainer>
+      {/* <SubContainer>
         <Logo src={`/images/stockLogos/${props.symbol}.png`} />
         <StockName>{companyName}</StockName>
-      </SubContainer>
+      </SubContainer> */}
     </Container>
   );
 }

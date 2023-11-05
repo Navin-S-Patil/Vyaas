@@ -31,8 +31,8 @@ function Footer() {
           <div className="footerLinks" >
             <Link to="/" className="linktag" >Home</Link>
             <Link to="/user" className="linktag">User</Link>
-            <Link to="stocks" className="linktag">Stocks</Link>
-            <Link to="portfolis" className="linktag">Portfolio</Link>
+            <Link to="/stocks" className="linktag">Stocks</Link>
+            <Link to="portfolio" className="linktag">Portfolio</Link>
             <Link to="/aboutus" className="linktag">About Us</Link>
           </div>
         </div>

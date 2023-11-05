@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import Line from "./Line";
 
 const Container = styled.div``;
 
@@ -33,41 +35,59 @@ const SubContainer = styled.div`
   font-family: "Inter";
   font-style: normal;
   color: #fff;
+  text-align: center;
 `;
 
 const Range = styled.input`
+  -webkit-appearance: none;
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 5px;
+  background: #fff;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 100%;
-    height: 0.5rem;
-    border-radius: 5px;
-    background: #fff;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-    &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 1rem;
-        height: 1rem;
-        border-radius: 50%;
-        background: #4CAF50;
-        cursor: pointer;
-    }
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #4caf50;
+    cursor: pointer;
+  }
 `;
 
+function Performance(props) {
+  const stocks = useSelector((state) => state.stock);
+  const stock = stocks.get(props.symbol)[0];
+  //find min max in the stocks historical data in the interval of 1 year
+  const interval = 365;
+  let min = stock.historicalData[0].price;
+  let max = stock.historicalData[0].price;
+  for (let i = 1; i < interval; i++) {
+    if (stock.historicalData[i].price < min) {
+      min = stock.historicalData[i].price;
+    }
+    if (stock.historicalData[i].price > max) {
+      max = stock.historicalData[i].price;
+    }
+  }
+  const value = stock.historicalData[0].price;
+  // const scaledValue = ((value - min) / (max - min)) * 100;
 
-function Performance() {
   return (
     <Container>
       <Title>Performance</Title>
       <MainContainer>
         <SubContainer>
-          Today’s Low <br /> 855.85
+          Year’s Low <br /> {min.toFixed(2)}
         </SubContainer>
-        <Range type="range"  />
+        {/* <Range type="range" /> */}
+        <Line min={min} max={max} curr={value} />
         <SubContainer>
-          Today’s High <br /> 906.00
+          Year’s High <br /> {max.toFixed(2)}
         </SubContainer>
       </MainContainer>
     </Container>

@@ -16,26 +16,26 @@ import { AnimatePresence } from "framer-motion";
 import AboutUs from "./pages/AboutUs";
 import Register from "./pages/Register";
 
-import Timepass2 from "./components/Timepass2";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 function AnimatedRoutes() {
   return (
     <AnimatePresence>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="" element={<PrivateRoutes />}>
+          <Route path="/portfolio" element={<Portfolio />} />
+        </Route>
         <Route path="/stocks" element={<Stocks />} />
         <Route path="/stocks/:apiName" element={<Stock />} />
-        {/* For now Temp */}
-        {/* <Route path="/stocks/axis" element={<Stock />} /> */}
-        {/*  */}
-        <Route path="/user" element={<User />} />
+
+        <Route path="" element={<PrivateRoutes />}>
+          <Route path="/user" element={<User />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="*" element={<Notfound />} />
-
-        <Route path="/timepass2" element={<Timepass2 />} />
       </Routes>
     </AnimatePresence>
   );

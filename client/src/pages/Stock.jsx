@@ -1,13 +1,13 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Graph from "../components/Graph";
+// import Graph from "../components/Graph";
 import GraphTop from "../components/GraphTop";
 import Navbar from "../components/Navbar";
 import Performance from "../components/Performance";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Timepass2 from "../components/Timepass2";
+import WrokignGraph from "../components/WrokignGraph";
 
 function Stock() {
 
@@ -25,8 +25,8 @@ function Stock() {
     >
       <Navbar />
       <GraphTop symbol={symbol}/>
-      <Timepass2  symbol={symbol}/>
-      <Performance />
+      <WrokignGraph  symbol={symbol}/>
+      <Performance symbol={symbol} />
       <Footer />
     </motion.div>
   );

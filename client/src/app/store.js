@@ -1,18 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import stockReducer  from "../features/stockSlice";
 import { getInitialStock } from "../features/stockSlice";
-
-// const configureStore = require("@reduxjs/toolkit").configureStore;
-// const stockReducer = require("../features/stockSlice");
+import authReducer from "../features/authSlice";
+import { apiSlice } from "../features/apiSlice";
 
 const store = configureStore({
   reducer: {
     stock: stockReducer,
+    auth : authReducer,
+    [apiSlice.reducerPath] : apiSlice.reducer
   },
   middleware : (getDefaultMiddleware) => getDefaultMiddleware({
-    devTools: process.env.NODE_ENV !== 'production',
+    // devTools: process.env.NODE_ENV !== 'production',
     serializableCheck: false,
-  }),
+  }).concat(apiSlice.middleware),
 });
 
 

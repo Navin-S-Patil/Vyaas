@@ -1,23 +1,21 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link as Linked } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useRegisterMutation } from "../features/userApiSlice";
+import { setCredential } from "../features/authSlice";
+import Loader from "../components/Loader";
+import Navbar from "../components/Navbar";
 
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-    111.65deg,
-    rgba(165, 251, 233, 0.95) 0.32%,
-    rgba(157, 212, 238, 0.95) 27.87%,
-    rgba(102, 115, 250, 0.684) 113.85%
-  );
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 4rem 0rem;
 `;
 
 const Wrapper = styled.div`
@@ -73,8 +71,16 @@ const FlexCol = styled.div`
   width: 100%;
 `;
 
+const Box = styled.div`
+  height: 100vh;
+`;
+
+const Error = styled.span`
+  color: red;
+  /* padding: 0.5rem; */
+`;
+
 const Register = () => {
-  const navigate = useNavigate();
   const [user, setUser] = useState({
     fname: "",
     lname: "",
@@ -85,17 +91,25 @@ const Register = () => {
   });
   const [error, setError] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userInfo = useSelector((state) => state.auth.userInfo);
+
+  const [register, { isLoading }] = useRegisterMutation();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
+
   async function registerHandler(e) {
     e.preventDefault();
     const { fname, lname, username, email, password, reEnterPassword } = user;
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     if (password !== reEnterPassword) {
+      toast.error("Passwords do not match");
       setUser({ ...user, password: "", reEnterPassword: "" });
       setTimeout(() => {
         setError("");
@@ -104,15 +118,20 @@ const Register = () => {
     }
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/users/",
-        { fname, lname, username, email, password },
-        config
-      );
-
-      navigate("/login");
+      const res = await register({
+        fname,
+        lname,
+        username,
+        email,
+        password,
+      }).unwrap();
+      dispatch(setCredential(res));
+      toast.success(`${fname} Registered successfully!`);
+      navigate("/");
     } catch (error) {
-      setError(error.response.data.error);
+      toast.error(error?.data?.message || error.error);
+
+      setError(error?.data?.message || error.error);
       setTimeout(() => {
         setError("");
       }, 5000);
@@ -128,67 +147,70 @@ const Register = () => {
   }
 
   return (
-    <Container>
-      <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input
-            name="fname"
-            type="text"
-            onChange={handleChange}
-            placeholder="First name"
-            value={user.fname}
-          />
-          <Input
-            name="lname"
-            type="text"
-            onChange={handleChange}
-            placeholder="Last name"
-            value={user.lname}
-          />
-          <Input
-            name="username"
-            type="text"
-            onChange={handleChange}
-            placeholder="username"
-            value={user.username}
-          />
-          <Input
-            name="email"
-            type="email"
-            onChange={handleChange}
-            value={user.email}
-            placeholder="Email"
-          />
-          <Input
-            name="password"
-            type="password"
-            onChange={handleChange}
-            placeholder="password"
-            value={user.password}
-          />
-          <Input
-            name="reEnterPassword"
-            type="password"
-            onChange={handleChange}
-            placeholder="confirm password"
-            value={user.reEnterPassword}
-          />
-          <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
-          </Agreement>
-          <FlexCol>
-            <Link>
-              <Linked to="/logIn">ALREADY HAVE AN ACCOUNT</Linked>
-            </Link>
-
-            {error && <span>{error}</span>}
-            <Button onClick={registerHandler}>CREATE</Button>
-          </FlexCol>
-        </Form>
-      </Wrapper>
-    </Container>
+    <Box>
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>CREATE AN ACCOUNT</Title>
+          <Form>
+            <Input
+              name="fname"
+              type="text"
+              onChange={handleChange}
+              placeholder="First name"
+              value={user.fname}
+            />
+            <Input
+              name="lname"
+              type="text"
+              onChange={handleChange}
+              placeholder="Last name"
+              value={user.lname}
+            />
+            <Input
+              name="username"
+              type="text"
+              onChange={handleChange}
+              placeholder="username"
+              value={user.username}
+            />
+            <Input
+              name="email"
+              type="email"
+              onChange={handleChange}
+              value={user.email}
+              placeholder="Email"
+            />
+            <Input
+              name="password"
+              type="password"
+              onChange={handleChange}
+              placeholder="password"
+              value={user.password}
+            />
+            <Input
+              name="reEnterPassword"
+              type="password"
+              onChange={handleChange}
+              placeholder="confirm password"
+              value={user.reEnterPassword}
+            />
+            <Agreement>
+              By creating an account, I consent to the processing of my personal
+              data in accordance with the <b>PRIVACY POLICY</b>
+            </Agreement>
+            <FlexCol>
+              {error && <Error>{error}</Error>}
+              <Link>
+                <Linked to="/logIn">ALREADY HAVE AN ACCOUNT</Linked>
+              </Link>
+              {isLoading && <Loader />}
+              <Button onClick={registerHandler}>CREATE</Button>
+            </FlexCol>
+          </Form>
+        </Wrapper>
+      </Container>
+    </Box>
   );
 };
 

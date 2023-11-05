@@ -1,26 +1,23 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { login } from "../redux/apiCalls";
+
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
-import { Link as Linked } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { logged } from "../redux/userRedux";
-// import { useNavigate } from "react-router-dom";
+import { Link as Linked, useNavigate } from "react-router-dom";
+
+import { useLoginMutation } from "../features/userApiSlice";
+import { setCredential } from "../features/authSlice";
+import { toast } from "react-toastify";
+import Loader from "../components/Loader";
+import Navbar from "../components/Navbar";
 
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-    111.65deg,
-    rgba(165, 251, 233, 0.95) 0.32%,
-    rgba(157, 212, 238, 0.95) 27.87%,
-    rgba(102, 115, 250, 0.684) 113.85%
-  );
   background-size: cover;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 5rem 0rem;
 `;
 
 const Wrapper = styled.div`
@@ -73,57 +70,77 @@ const Error = styled.span`
   color: red;
 `;
 
+const Box = styled.div`
+  height: 100vh;
+`;
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const dispatch = useDispatch();
-  // const { isFetching, error } = useSelector((state) => state.user);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  let LoggedIn = false;
+  const { userInfo } = useSelector((state) => state.auth);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    LoggedIn = login(dispatch, { username, password });
-    console.log(LoggedIn);
-    if (LoggedIn) {
-      dispatch(logged());
-      // fetching(dispatch, { username});
+  const [login, { isLoading }] = useLoginMutation();
+
+  useEffect(() => {
+    if (userInfo) {
       navigate("/");
+    }
+  }, [navigate, userInfo]);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await login({ username, password }).unwrap();
+      dispatch(setCredential({ ...res }));
+      toast.success(`${res.fname} Logged in successfully!`);
+      navigate("/");
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+
+      //custom error handler
+      setError(true);
+      setErrorMessage(error?.data?.message || error.error);
+      setTimeout(() => {
+        setError(false);
+        setErrorMessage("");
+      }, 5000);
     }
   };
 
-  useEffect(() => {
-    if (LoggedIn) {
-      return <Linked to="/" />;
-    }
-  }, [LoggedIn]);
-
   return (
-    <Container>
-      <Wrapper>
-        <Title>SIGN IN</Title>
-        <Form>
-          <Input
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <Input
-            placeholder="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button onClick={handleClick} >
-            LOGIN
-          </Button>
-          {error && <Error>Something went wrong...</Error>}
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>
-            <Linked to="/register">CREATE A NEW ACCOUNT</Linked>
-          </Link>
-        </Form>
-      </Wrapper>
-    </Container>
+    <Box>
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>SIGN IN</Title>
+          <Form>
+            <Input
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              placeholder="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button onClick={handleClick}>LOGIN</Button>
+            {isLoading && <Loader />}
+            {error && <Error>{errorMessage}</Error>}
+            Want to create a new account
+            <Link>
+              <Linked to="/register">CREATE A NEW ACCOUNT</Linked>
+            </Link>
+          </Form>
+        </Wrapper>
+      </Container>
+    </Box>
   );
 };
 

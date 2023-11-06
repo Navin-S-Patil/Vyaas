@@ -3,6 +3,9 @@ import stockReducer  from "../features/stockSlice";
 import { getInitialStock } from "../features/stockSlice";
 import authReducer from "../features/authSlice";
 import { apiSlice } from "../features/apiSlice";
+// import { enableMapSet } from "immer";
+
+// enableMapSet();
 
 const store = configureStore({
   reducer: {

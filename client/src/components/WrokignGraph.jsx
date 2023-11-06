@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -159,17 +158,17 @@ function WrokignGraph(props) {
       },
       title: {
         display: true,
-        text: "Chart.js Line Chart",
+        text: "",
       },
     },
   };
 
   return (
     <div>
-      <SubContainer>
+      {/* <SubContainer>
         <Logo src={`/images/stockLogos/${props.symbol}.png`} />
         <StockName>{individualStock[0].companyName}</StockName>
-      </SubContainer>
+      </SubContainer> */}
       <Container>
         <Line options={options} data={data} />
         <Stack direction="row" spacing={1}>

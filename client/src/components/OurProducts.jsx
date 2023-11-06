@@ -2,6 +2,7 @@ import React from "react";
 import logos from "../images/Vyaas_logo.png";
 import laptop from "../images/laptop.png";
 import text from "../images/Group1.png";
+import { Link } from "react-router-dom";
 
 function OurProducts() {
   return (
@@ -28,7 +29,11 @@ function OurProducts() {
             market with fun
           </p> */}
           <img src={text} alt="text" className="text" />
-          <button className="loginRegister loginButton create">Create account now</button>
+          <Link to="/register">
+            <button className="loginRegister loginButton create">
+              Create account now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

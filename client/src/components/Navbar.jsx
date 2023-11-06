@@ -1,8 +1,9 @@
 import logo from "../images/logo.png";
-import React from "react";
+import React, { useEffect } from "react";
+// import {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {toast} from 'react-toastify';
+import { toast } from "react-toastify";
 
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/authSlice";
@@ -19,15 +20,14 @@ const buttonStyle = {
   padding: "0.6rem 2rem",
   fontSize: "1rem",
   fontWeight: "bolder",
-}
-
+  margin: "0 0.5rem",
+};
 
 function Navbar() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
-
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -40,6 +40,11 @@ function Navbar() {
 
   const [logoutApiCall] = useLogoutMutation();
 
+  //balance update
+  // useEffect(() => {
+    
+  // },[user.balance]);
+
   async function loggedOut() {
     handleClose();
     // dispatch(logout());
@@ -51,7 +56,7 @@ function Navbar() {
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
-    
+
     navigate("/");
   }
 
@@ -66,6 +71,18 @@ function Navbar() {
         id="search"
         className="searchBox"
       />
+
+      {user && (
+        <Button
+          id="basic-button"
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          style={buttonStyle}
+        >
+          Ecash : {user.balance.toFixed(2)}
+        </Button>
+      )}
 
       {user === null ? (
         <Link to="/login">

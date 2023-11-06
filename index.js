@@ -11,6 +11,7 @@ const manualStockRefresh = require("./routes/manualStockRefresh");
 const transaction = require("./routes/transaction");
 const portfolioData = require("./routes/portfolioData");
 const userRoute = require("./routes/userRoute");
+const stockRoute = require("./routes/stockRoute");
 
 const updateStocksData = require("./middleware/stockUpdate");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
@@ -38,6 +39,7 @@ app.use("/api/", stocksDataFetching);
 app.use("/api/", transaction);
 
 app.use("/api/users", userRoute);
+app.use("/api/stocks", stockRoute);
 
 //for testing and individual call to update stock data
 app.use("/api/", manualStockRefresh);

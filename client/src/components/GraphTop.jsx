@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import BuySellButton from "./BuySellButton";
 
 const Container = styled.div`
   display: flex;
@@ -59,6 +60,9 @@ function GraphTop(props) {
 
   const companyName = stock.get(props.symbol)[0].companyName;
 
+  // console.log(stock.get(props.symbol)[0].historicalData[0].price);
+  const price = stock.get(props.symbol)[0].historicalData[0].price;
+
   return (
     <Container>
       <Address>
@@ -72,10 +76,12 @@ function GraphTop(props) {
         </Link>
         {companyName}
       </Address>
-      {/* <SubContainer>
+      <SubContainer>
         <Logo src={`/images/stockLogos/${props.symbol}.png`} />
         <StockName>{companyName}</StockName>
-      </SubContainer> */}
+
+        <BuySellButton symbol={props.symbol} price={price} />
+      </SubContainer>
     </Container>
   );
 }

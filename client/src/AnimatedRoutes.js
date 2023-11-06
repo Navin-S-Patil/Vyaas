@@ -25,11 +25,10 @@ function AnimatedRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="" element={<PrivateRoutes />}>
           <Route path="/portfolio" element={<Portfolio />} />
-        </Route>
-        <Route path="/stocks" element={<Stocks />} />
-        <Route path="/stocks/:apiName" element={<Stock />} />
 
-        <Route path="" element={<PrivateRoutes />}>
+          <Route path="/stocks" element={<Stocks />} />
+          <Route path="/stocks/:apiName" element={<Stock />} />
+
           <Route path="/user" element={<User />} />
         </Route>
         <Route path="/login" element={<Login />} />

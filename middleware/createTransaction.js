@@ -94,12 +94,7 @@ const createTransaction = async (req, res, type) => {
       return res.status(404).json({ error: "Stock not found." });
     }
 
-    //check if that much stocks are available or not
-    // if (type === "BUY" && existingStock.quantity < quantity) {
-    //   return res
-    //     .status(201)
-    //     .json({ message: "Not enough stocks available to buy." });
-    // }
+    
 
     await createNewTransaction(
       user._id,

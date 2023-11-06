@@ -40,6 +40,7 @@ const stockSlice = createSlice({
       // Update the state with the fetched data if needed
       return action.payload;
     },
+    
   },
   extraReducers: (builder) => {
     // Handle the fulfilled action for getInitialStock

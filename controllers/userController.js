@@ -3,8 +3,6 @@ const User = require("../models/User");
 const Portfolio = require("../models/Portfolio");
 const generateToken = require("../utils/generateTokens");
 
-
-
 //@desc    Auth user/set token
 //route    POST /api/users/auth
 //@access  Public
@@ -21,6 +19,7 @@ const authUser = asyncHandler(async (req, res) => {
       lname: user.lname,
       username: user.username,
       email: user.email,
+      balance : user.balance,
     });
   } else {
     res.status(400);
@@ -66,6 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
       lname: newUser.lname,
       username: newUser.username,
       email: newUser.email,
+      balance: newUser.balance,
     });
   } else {
     res.status(400);
@@ -91,14 +91,14 @@ const loggoutUser = asyncHandler(async (req, res) => {
 //route    GET /api/users/profile
 //@access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-    const user = {
-        _id : req.user._id,
-        fname : req.user.fname,
-        lname : req.user.lname,
-        username : req.user.username,
-        email : req.user.email,
-        balance : req.user.balance,
-    }
+  const user = {
+    _id: req.user._id,
+    fname: req.user.fname,
+    lname: req.user.lname,
+    username: req.user.username,
+    email: req.user.email,
+    balance: req.user.balance,
+  };
 
   res.status(200).json(user);
 });
@@ -107,32 +107,50 @@ const getUserProfile = asyncHandler(async (req, res) => {
 //route    PUT /api/users/profile
 //@access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user._id);
 
-    if(user){
-        user.fname = req.body.fname || user.fname;
-        user.lname = req.body.lname || user.lname;
-        user.username = req.body.username || user.username;
-        user.email = req.body.email || user.email;
-        if(req.body.password){
-            user.password = req.body.password;
-        }
-
-        const updatedUser = await user.save();
-        res.status(200).json({
-            _id : updatedUser._id,
-            fname : updatedUser.fname,
-            lname : updatedUser.lname,
-            username : updatedUser.username,
-            email : updatedUser.email,
-            balance : updatedUser.balance,
-        })
-    }else{
-        res.status(401);
-        throw new Error("User not found");
+  if (user) {
+    user.fname = req.body.fname || user.fname;
+    user.lname = req.body.lname || user.lname;
+    user.username = req.body.username || user.username;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
     }
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updatedUser._id,
+      fname: updatedUser.fname,
+      lname: updatedUser.lname,
+      username: updatedUser.username,
+      email: updatedUser.email,
+    });
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
   res.status(200).json({
     message: "Update user profile",
+  });
+});
+
+//@desc    fetch User Bal
+//route    GET /api/users/balance
+//@access  Private
+const fetchUserBal = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.status(200).json({
+      balance: updatedUser.balance,
+    });
+  } else {
+    res.status(401);
+    throw new Error("User not found");
+  }
+  res.status(200).json({
+    message: "Balance Retrieved",
   });
 });
 
@@ -142,4 +160,5 @@ module.exports = {
   loggoutUser,
   getUserProfile,
   updateUserProfile,
+  fetchUserBal,
 };

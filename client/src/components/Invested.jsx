@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { useGetProfitMutation } from "../features/stockApiSlice";
 
 const Container = styled.div`
   color: none;
@@ -49,17 +51,34 @@ const Text = styled.p`
 `;
 
 function Invested() {
+  
+  const { userInfo } = useSelector((state) => state.auth);
+  const [getProfit] = useGetProfitMutation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getProfit({ _id: userInfo._id }).unwrap();
+        // console.log(result);
+      } catch (error) {
+        console.error("Error fetching profit:", error);
+      }
+    };
+
+    fetchData();
+  }, [getProfit, userInfo._id]);
+
   return (
     <Container>
       <Heading>You have Invested</Heading>
       <Box>
         <BoxText>
-            <Text>+₹80</Text>
-            <Text>+₹80</Text>
+          <Text>working</Text>
+          <Text>+₹80</Text>
         </BoxText>
         <BoxText>
-            <Text>Total Returns</Text>
-            <Text>Current Value</Text>
+          <Text>Invested</Text>
+          <Text>Returned</Text>
         </BoxText>
       </Box>
     </Container>

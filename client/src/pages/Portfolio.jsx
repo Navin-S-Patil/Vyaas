@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import PortfolioInvest from '../components/PortfolioInvest'
 
 function Portfolio() {
   return (
-    <div>Portfolio</div>
+    <>
+      <Navbar />
+      <PortfolioInvest />
+    </>
   )
 }
 

@@ -15,7 +15,7 @@ function Stocks() {
       exit={{ opacity: 0 , transition: { duration: 0.5 }}}
     >
       <Navbar />
-      <Invested />
+      {/* <Invested /> */}
       <StocksBox />
       <StocksSearch />
       <Feedback />

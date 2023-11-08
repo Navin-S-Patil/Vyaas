@@ -25,8 +25,15 @@ export const stockApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getProfit: builder.mutation({
+      query: (data) => ({
+        url: `${STOCK_URL}/stocks/profit`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useBuyMutation, useSellMutation, useGetUserBalanceMutation } =
+export const { useBuyMutation, useSellMutation, useGetUserBalanceMutation, useGetProfitMutation } =
   stockApi;

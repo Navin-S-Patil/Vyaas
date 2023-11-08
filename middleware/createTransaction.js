@@ -29,6 +29,13 @@ const updateStockInPortfolio = async (
     portfolioStock.stock.equals(existingStock._id)
   );
 
+  //checks
+  if (portfolioStock && portfolioStock.quantity < quantity && type === "SELL") {
+    return res
+      .status(400)
+      .json({ error: "You don't have enough stocks to sell" });
+  }
+
   if (type === "BUY") {
     //if the stock if buy for the first time
     if (!portfolioStock) {
@@ -94,7 +101,27 @@ const createTransaction = async (req, res, type) => {
       return res.status(404).json({ error: "Stock not found." });
     }
 
-    
+    const userPortfolio = await Portfolio.findOne({ user: user._id });
+
+    // checks
+    // if(quantity <= 0){
+    //   return res.status(400).json({ error: "Quantity should be greater than 0" });
+    // }
+    if (existingStock.quantity < quantity && type === "SELL") {
+      return res
+        .status(400)
+        .json({ error: "Not enough stocks in Market to sell" });
+    }
+    if (userPortfolio.stocks.quantity < quantity && type === "SELL") {
+      return res
+        .status(400)
+        .json({ error: "You don't have enough stocks to sell" });
+    }
+    if (userPortfolio.stocks.length === 0 && type === "SELL") {
+      return res
+        .status(400)
+        .json({ error: "You don't have enough stocks to sell" });
+    }
 
     await createNewTransaction(
       user._id,

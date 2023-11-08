@@ -23,7 +23,6 @@ const authSlice = createSlice({
       localStorage.removeItem("userInfo");
     },
     setBalance: (state, action) => {
-      console.log(action.payload);
       state.userInfo.balance = action.payload;
     },
   },

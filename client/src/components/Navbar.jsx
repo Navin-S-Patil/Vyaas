@@ -40,14 +40,8 @@ function Navbar() {
 
   const [logoutApiCall] = useLogoutMutation();
 
-  //balance update
-  // useEffect(() => {
-    
-  // },[user.balance]);
-
   async function loggedOut() {
     handleClose();
-    // dispatch(logout());
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
@@ -121,7 +115,9 @@ function Navbar() {
             <Link to="/user">
               <MenuItem onClick={handleClose}>Profile</MenuItem>
             </Link>
-            <MenuItem onClick={handleClose}>Portfolio</MenuItem>
+            <Link to="/portfolio">
+              <MenuItem onClick={handleClose}>Portfolio</MenuItem>
+            </Link>
             <MenuItem onClick={loggedOut}>Logout</MenuItem>
           </Menu>
         </>

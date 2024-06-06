@@ -14,7 +14,7 @@ function Stock() {
   const location = useLocation();
   const stockName = location.pathname.split("/")[2];
 
-  const stock = useSelector((state) => state.stock);
+  const stock = useSelector((state) => state.stock.stocks);
   const symbol = stock.get(stockName)[0].symbol;
   
   return (

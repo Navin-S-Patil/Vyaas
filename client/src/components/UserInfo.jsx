@@ -163,6 +163,9 @@ function UserInfo() {
         <Button onClick={handleSubmit}>Update</Button>
       </Container>
       <br />
+
+
+      
       <Container>
         <Text>Change Password</Text>
         <Inline>

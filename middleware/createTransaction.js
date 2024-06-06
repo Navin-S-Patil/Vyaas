@@ -104,9 +104,9 @@ const createTransaction = async (req, res, type) => {
     const userPortfolio = await Portfolio.findOne({ user: user._id });
 
     // checks
-    // if(quantity <= 0){
-    //   return res.status(400).json({ error: "Quantity should be greater than 0" });
-    // }
+    if(quantity <= 0){
+      return res.status(400).json({ error: "Quantity should be greater than 0" });
+    }
     if (existingStock.quantity < quantity && type === "SELL") {
       return res
         .status(400)

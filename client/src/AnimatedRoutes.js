@@ -18,7 +18,18 @@ import Register from "./pages/Register";
 
 import PrivateRoutes from "./components/PrivateRoutes";
 
+import LoadingScreen from "./components/LoadingScreen";
+
+import { useSelector } from "react-redux";
+
 function AnimatedRoutes() {
+
+  const isLoading = useSelector((state) => state.stock.isLoading);
+  
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <AnimatePresence>
       <Routes>

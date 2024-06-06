@@ -21,7 +21,7 @@ dotenv.config();
 const app = express();
 
 mongoose
-  .connect(process.env.MONGO_URL_local, { serverSelectionTimeoutMS: 30000 })
+  .connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 30000 })
   .then(() => console.log("DB Connection Successfull!"))
   .catch((err) => {
     console.log(err);

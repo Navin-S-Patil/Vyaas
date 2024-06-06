@@ -117,7 +117,6 @@ function BuySellButton(props) {
       const balance = await getUserBalance({
         _id: userInfo._id,
       }).unwrap();
-      // console.log(balance);
       dispatch(setBalance(balance));
       handleClose();
     } catch (error) {

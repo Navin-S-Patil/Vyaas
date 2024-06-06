@@ -1,2 +1,4 @@
-1. change the db to sql
-2. write the code for updation of db(stock) per day
+1. make the mongodb data avaible on atlas
+2. build that portfolio page
+3. create a transaction page
+4. rebuild the redux store 

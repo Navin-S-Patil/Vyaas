@@ -21,7 +21,7 @@ const Box = styled.div`
 `;
 
 function StockBoxGrid() {
-  const [stock, setStock] = useState(useSelector((state) => state.stock));
+  const [stock, setStock] = useState(useSelector((state) => state.stock.stocks));
 
   return (
     <Container>

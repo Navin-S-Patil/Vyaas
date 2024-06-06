@@ -40,8 +40,8 @@ async function addStocksData(name) {
     console.log("Adding stocks data... started " + name);
 
     const data = await axios.get(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=RELIANCE.BSE&outputsize=full&apikey=demo`
-      // `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AXISBANK.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
+      // `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=RELIANCE.BSE&outputsize=full&apikey=demo`
+      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${name}.BSE&outputsize=full&apikey=374IRTQTIUTYVL9A`
     );
     
    

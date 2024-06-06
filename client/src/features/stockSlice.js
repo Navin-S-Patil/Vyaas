@@ -33,21 +33,44 @@ const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
 // Create a Redux Toolkit slice
 const stockSlice = createSlice({
   name: "stocks",
-  initialState: {},
+  initialState: {
+    isLoading : false,
+    isError: false,
+    stocks : {}
+  },
   reducers: {
     // Add other synchronous reducers if needed
     setInitialStock: (state, action) => {
       // Update the state with the fetched data if needed
       return action.payload;
     },
-    
   },
   extraReducers: (builder) => {
     // Handle the fulfilled action for getInitialStock
     builder.addCase(getInitialStock.fulfilled, (state, action) => {
       // Update the state with the fetched data if needed
       // console.log(action.payload)
-      return action.payload;
+
+      state.isLoading = false;
+      state.isError = false;
+
+      state.stocks = action.payload;
+
+      // return action.payload;
+    });
+
+    // Handle the pending action for getInitialStock
+    builder.addCase(getInitialStock.pending, (state, action) => {
+      // Update the state with the fetched data if needed
+      state.isLoading = true;
+      return;
+    });
+
+    builder.addCase(getInitialStock.rejected, (state, action) => {
+      // Update the state with the fetched data if needed
+      console.log('Error', action.payload);
+      state.isError = true;
+      return;
     });
   },
 });

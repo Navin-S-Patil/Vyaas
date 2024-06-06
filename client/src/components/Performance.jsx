@@ -60,7 +60,7 @@ const Range = styled.input`
 `;
 
 function Performance(props) {
-  const stocks = useSelector((state) => state.stock);
+  const stocks = useSelector((state) => state.stock.stocks);
   const stock = stocks.get(props.symbol)[0];
   //find min max in the stocks historical data in the interval of 1 year
   const interval = 365;

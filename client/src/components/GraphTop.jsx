@@ -56,7 +56,7 @@ const StockName = styled.p`
 `;
 
 function GraphTop(props) {
-  const stock = useSelector((state) => state.stock);
+  const stock = useSelector((state) => state.stock.stocks);
 
   const companyName = stock.get(props.symbol)[0].companyName;
 

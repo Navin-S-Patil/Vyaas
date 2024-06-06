@@ -69,7 +69,7 @@ function WrokignGraph(props) {
   const [selectedRange, setSelectedRange] = useState("1week");
   const [boundary, setBoundary] = useState({ min: 0, max: 0 });
 
-  const stocks = useSelector((state) => state.stock);
+  const stocks = useSelector((state) => state.stock.stocks);
   const individualStock = stocks.get(props.symbol);
 
   useEffect(() => {

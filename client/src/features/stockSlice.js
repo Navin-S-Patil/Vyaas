@@ -49,7 +49,7 @@ const stockSlice = createSlice({
     // Handle the fulfilled action for getInitialStock
     builder.addCase(getInitialStock.fulfilled, (state, action) => {
       // Update the state with the fetched data if needed
-      // console.log(action.payload)
+      console.log(action.payload)
 
       state.isLoading = false;
       state.isError = false;

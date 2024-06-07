@@ -5,6 +5,9 @@ const protect = require("../middleware/authMiddleware");
 router.get("/portfoliodata",protect, async (req, res) => {
 
     try {
+        if(!req.user) {
+            return res.status(401).send({message : "Unauthorized"});
+        }
         const portfolio = await Portfolio.findOne({ user: req.user._id });
         
         if(!portfolio) {

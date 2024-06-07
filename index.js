@@ -5,7 +5,6 @@ const dotenv = require("dotenv");
 require("dotenv").config({ path: "./config.env" });
 const cookieParser = require("cookie-parser");
 
-
 const stocksDataFetching = require("./routes/stocksDataFetching");
 const manualStockRefresh = require("./routes/manualStockRefresh");
 const transaction = require("./routes/transaction");
@@ -27,12 +26,15 @@ mongoose
     console.log(err);
   });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // The URL of your frontend
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-
 
 app.use("/api/", portfolioData);
 app.use("/api/", stocksDataFetching);

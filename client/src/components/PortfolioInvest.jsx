@@ -1,15 +1,29 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useGetPortfolioQuery } from "../features/apiSlice";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
+import LoadingScreen from "./LoadingScreen";
+
+import Paper from '@mui/material/Paper';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 20px;
   margin-top: 20px;
   padding: 20px;
-`;  
+`;
 
 const FlexHorizontal = styled.div`
   display: flex;
@@ -17,53 +31,16 @@ const FlexHorizontal = styled.div`
   justify-content: space-between;
 `;
 
-const FlexVertical = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
 const Text = styled.p`
   font-size: 20px;
   font-weight: 500;
-  color: #036AD1;
+  color: #036ad1;
   text-align: center;
   align-items: center;
 `;
 
-const HoldingsTab = styled.div`
-  width: 100%;
-  background-color: #FFFFFF;
-  border-radius: 20px;
-  padding: 10px;
-  margin-bottom: 10px;
-`;
-
-const PortfolioHeader = styled.div`
-  background-color: #f0f8ff;
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #036AD1;
-`;
-
-const PortfolioDetails = styled.div`
-  background-color: #f0f8ff;
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 20px;
-`;
-
-const SummaryText = styled.div`
-  font-size: 18px;
-  color: #036AD1;
-  margin: 5px 0;
-`;
-
 const StockAction = styled.div`
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
   border-radius: 20px;
   padding: 20px;
   text-align: center;
@@ -71,8 +48,8 @@ const StockAction = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background-color: ${props => props.sell ? '#036AD1' : '#FF3B30'};
-  color: #FFFFFF;
+  background-color: ${(props) => (props.sell ? "#036AD1" : "#FF3B30")};
+  color: #ffffff;
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
@@ -82,43 +59,105 @@ const ActionButton = styled.button`
 `;
 
 function PortfolioInvest() {
-  const portfolio = useSelector(state => state.portfolio);
+  const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // const totalInvested = portfolio.reduce((sum, stock) => sum + stock.invested, 0);
-  // const totalCurrentValue = portfolio.reduce((sum, stock) => sum + stock.current, 0);
-  // const totalReturn = portfolio.reduce((sum, stock) => sum + stock.return, 0);
+  const { data, isError, isLoading, refetch } = useGetPortfolioQuery();
+  const stockMap = useSelector((state) => state.stock.stocks);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (isLoading) return <LoadingScreen />;
+  if (isError) {
+    toast.error("Error fetching portfolio data");
+    navigate("/");
+    return null;
+  }
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const columns = [
+    { id: "stockName", label: "Stock", minWidth: 170 },
+    { id: "quantity", label: "Quantity", minWidth: 100 },
+    { id: "profit", label: "Profit", minWidth: 100 },
+    { id: "averagePrice", label: "Average Price", minWidth: 100 },
+    { id: "currentPrice", label: "Current Price", minWidth: 100 },
+  ];
+
+  const rows = data.stocks.map((portfolioStock) => {
+    const stockDetails = stockMap.get(portfolioStock.name)?.[0];
+    const currentPrice = stockDetails.historicalData[0].price;
+
+    return {
+      stockName: stockDetails?.companyName || portfolioStock.stock,
+      quantity: portfolioStock.quantity,
+      profit: ((currentPrice * portfolioStock.quantity - portfolioStock.averagePrice * portfolioStock.quantity).toFixed(2)),
+      averagePrice: portfolioStock.averagePrice.toFixed(2),
+      currentPrice: (currentPrice * portfolioStock.quantity).toFixed(2),
+    };
+  });
 
   return (
     <FlexHorizontal>
-      <FlexVertical style={{ width: '70%' }}>
-        <PortfolioHeader>Your Portfolio</PortfolioHeader>
-        <PortfolioDetails>
-          <SummaryText>Current Value: ₹{}</SummaryText>
-          <SummaryText>Invested Value: ₹{}</SummaryText>
-          <SummaryText>Total Return: ₹{}</SummaryText>
-          {/* <SummaryText>Current Value: ₹{totalCurrentValue}</SummaryText>
-          <SummaryText>Invested Value: ₹{totalInvested}</SummaryText>
-          <SummaryText>Total Return: ₹{totalReturn}</SummaryText> */}
-        </PortfolioDetails>
-        <Container>
-          {/* {portfolio.map((stock, index) => (
-            <HoldingsTab key={index}>
-              <FlexHorizontal>
-                <Text>{stock.name}</Text>
-                <Text>₹{stock.invested}</Text>
-                <Text>+ ₹{stock.return}</Text>
-                <Text>₹{stock.current}</Text>
-              </FlexHorizontal>
-            </HoldingsTab>
-          ))} */}
-        </Container>
-      </FlexVertical>
+      <Paper sx={{ width: '80%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
 
       <StockAction>
         <Text>Stocks</Text>
         <ActionButton>BUY</ActionButton>
         <ActionButton sell>SELL</ActionButton>
-        <SummaryText>Shares: XYZ Share Name</SummaryText>
         <Text>Sticky Property</Text>
       </StockAction>
     </FlexHorizontal>

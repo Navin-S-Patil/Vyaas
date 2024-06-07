@@ -41,6 +41,7 @@ const updateStockInPortfolio = async (
     if (!portfolioStock) {
       portfolio.stocks.push({
         stock: existingStock._id,
+        name: existingStock.symbol,
         quantity,
         originalBuyPrice: [price],
         averagePrice: price,

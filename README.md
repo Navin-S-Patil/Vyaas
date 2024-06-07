@@ -11,8 +11,6 @@ Vyaas is a [brief description of your project]. This project is designed to [pur
 
 ## Installation
 
-## Getting Started
-
 1. Clone the repository to your local machine:
 
     ```bash
@@ -56,7 +54,7 @@ Vyaas is a [brief description of your project]. This project is designed to [pur
 3. Start the backend server:
 
     ```bash
-    npm start
+    npm run server
     ```
 
     The backend server will start, and you should see relevant log messages indicating that the server is running.
@@ -85,3 +83,15 @@ UPDATE_KEY=RAIT
 API_KEY_2=<API KEY of alpha vantage>
 API_KEY_3=<API KEY of alpha vantage>
 NEWS_API_KEY=<API KEY of alpha vantage>
+```
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request for any enhancements, bug fixes, or suggestions.
+
+1. Fork the Project
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+4. Push to the Branch (git push origin feature/AmazingFeature)
+5. Open a Pull Request
+

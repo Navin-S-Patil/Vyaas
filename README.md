@@ -11,20 +11,66 @@ Vyaas is a [brief description of your project]. This project is designed to [pur
 
 ## Installation
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/your-username/vyaas.git
-    cd vyaas
+## Getting Started
+
+1. Clone the repository to your local machine:
+
+    ```bash
+    git clone https://github.com/Navin-S-Patil/QwickFix-Home-Service
     ```
 
-2. Install the dependencies:
-    ```sh
+2. Navigate to the client directory:
+
+    ```bash
+    cd client
+    ```
+
+3. Install the project dependencies:
+
+    ```bash
     npm install
     ```
+
+4. Start the client application:
+
+    ```bash
+    npm start
+    ```
+
+    This will launch the client application in your default web browser.
+
+## Running the Backend
+
+1. Navigate to the backend directory:
+
+    ```bash
+    cd backend
+    ```
+
+2. Install the backend dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Start the backend server:
+
+    ```bash
+    npm start
+    ```
+
+    The backend server will start, and you should see relevant log messages indicating that the server is running.
+
+Now, both the client and backend are up and running. You can access the application through your web browser and interact with the features provided.
+
+Feel free to explore and modify the code as needed for your specific use case. If you encounter any issues, refer to the documentation or seek help from the project community.
+
+Happy coding!
 
 ## Configuration
 
 Create a `config.env` file in the root directory of the project and add the following environment variables:
+
 
 ```env
 NODE_ENV=development

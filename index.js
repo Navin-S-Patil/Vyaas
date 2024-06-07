@@ -34,7 +34,7 @@ app.use(cookieParser());
 
 
 
-app.use("/api/auth", portfolioData);
+app.use("/api/", portfolioData);
 app.use("/api/", stocksDataFetching);
 app.use("/api/", transaction);
 

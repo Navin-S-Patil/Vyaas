@@ -3,12 +3,10 @@ const Portfolio = require("../models/Portfolio");
 const protect = require("../middleware/authMiddleware");
 
 router.get("/portfoliodata",protect, async (req, res) => {
-    // if(req.headers.key !== process.env.UPDATE_KEY) {
-    //     return res.status(401).send("Access Denied");
-    // }
 
     try {
-        const portfolio = await Portfolio.findOne({ user: req.headers._id });
+        const portfolio = await Portfolio.findOne({ user: req.user._id });
+        
         if(!portfolio) {
             return res.status(201).send({message : "Portfolio not found"});
         }

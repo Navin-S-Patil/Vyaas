@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const protect = require("../middleware/protect");
+const protect = require("../middleware/authMiddleware");
 
 router.put("/addcredits", protect, (req, res) => {
   // Add credits to user account

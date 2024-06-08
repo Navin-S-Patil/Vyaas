@@ -29,7 +29,8 @@ mongoose
 
 app.use(
   cors({
-    origin: "https://vyaas-client.onrender.com", // The URL of your frontend
+    
+    origin: process.env.NODE_ENV === "production" ? "https://vyaas-client.onrender.com" : "http://localhost:3000", // The URL of your frontend
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
 );

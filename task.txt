@@ -1,3 +1,5 @@
 
-2. build that portfolio page - half completed
 3. create a transaction page
+4. having issue send email feedback
+5. profile page repair - password rest etc
+6. about us page 

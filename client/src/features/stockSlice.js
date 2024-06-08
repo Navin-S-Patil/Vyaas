@@ -3,11 +3,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import list from "../utils/stockData";
 
+const baseUrl = "https://vyaas.onrender.com";
+
 const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
   try {
     const promises = list.map(async (item) => {
       try {
-        const response = await axios.get("http://localhost:5000/api/stock/", {
+        const response = await axios.get(`${baseUrl}/api/stock/`, {
           headers: {
             "Content-Type": "application/json",
             key: "RAIT",

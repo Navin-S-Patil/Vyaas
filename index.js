@@ -11,6 +11,7 @@ const transaction = require("./routes/transaction");
 const portfolioData = require("./routes/portfolioData");
 const userRoute = require("./routes/userRoute");
 const stockRoute = require("./routes/stockRoute");
+const addcredits = require("./routes/addCredits");
 
 const updateStocksData = require("./middleware/stockUpdate");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
@@ -32,6 +33,7 @@ app.use(
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -39,6 +41,7 @@ app.use(cookieParser());
 app.use("/api/", portfolioData);
 app.use("/api/", stocksDataFetching);
 app.use("/api/", transaction);
+app.use("/api/", addcredits);
 
 app.use("/api/users", userRoute);
 app.use("/api/stocks", stockRoute);

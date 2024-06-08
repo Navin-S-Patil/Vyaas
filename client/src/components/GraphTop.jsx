@@ -59,8 +59,6 @@ function GraphTop(props) {
   const stock = useSelector((state) => state.stock.stocks);
 
   const companyName = stock.get(props.symbol)[0].companyName;
-
-  // console.log(stock.get(props.symbol)[0].historicalData[0].price);
   const price = stock.get(props.symbol)[0].historicalData[0].price;
 
   return (

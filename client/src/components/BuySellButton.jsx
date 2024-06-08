@@ -50,16 +50,9 @@ const middleButtonStyle = {
 };
 
 function BuySellButton(props) {
-  // const [buysellState, setBuysellState] = useState({
-  //   buy: false,
-  //   sell: false,
-  // });
-
   const dispatch = useDispatch();
   const [counter, setCounter] = useState(0);
-
   const [buySellState, setBuySellState] = useState();
-
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
@@ -89,13 +82,11 @@ function BuySellButton(props) {
   const [getUserBalance] = useGetUserBalanceMutation();
 
   async function handleSubmit() {
-    //checks
     if (counter === 0) {
       toast.error("Please select a quantity");
       return;
     }
 
-    // BUY handler
     try {
       if (buySellState === "Buy") {
         await buy({
@@ -113,7 +104,6 @@ function BuySellButton(props) {
         }).unwrap();
       }
 
-      //set Balance
       const balance = await getUserBalance({
         _id: userInfo._id,
       }).unwrap();
@@ -127,23 +117,29 @@ function BuySellButton(props) {
 
   return (
     <>
-      <ButtonGroup size="small" aria-label="small  button group">
+      <ButtonGroup size="small" aria-label="small button group">
         <Button
           onClick={() => {
-            setOpen(true);
-            setBuySellState("Buy");
+            if (props.symbol) {
+              setOpen(true);
+              setBuySellState("Buy");
+            }
           }}
           style={buttonStyle}
+          disabled={!props.symbol}
         >
           Buy
         </Button>
 
         <Button
           onClick={() => {
-            setOpen(true);
-            setBuySellState("Sell");
+            if (props.symbol) {
+              setOpen(true);
+              setBuySellState("Sell");
+            }
           }}
           style={sellButtonStyle}
+          disabled={!props.symbol}
         >
           Sell
         </Button>
@@ -203,7 +199,6 @@ function BuySellButton(props) {
           <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
-
     </>
   );
 }

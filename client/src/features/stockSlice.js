@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import list from "../utils/stockData";
 
-const baseUrl = "https://vyaas.onrender.com";
+const baseUrl = "https://vyaas-production.up.railway.app";
 
+// Async thunk for fetching initial stock data
 const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
   try {
     const promises = list.map(async (item) => {
@@ -24,8 +24,8 @@ const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
     });
 
     const results = await Promise.all(promises);
-    const myMap = new Map(results);
-    return myMap;
+    const stockMap = new Map(results);
+    return stockMap;
   } catch (error) {
     console.error("Error:", error.message);
     throw error;
@@ -36,48 +36,34 @@ const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
 const stockSlice = createSlice({
   name: "stocks",
   initialState: {
-    isLoading : false,
+    isLoading: false,
     isError: false,
-    stocks : {}
+    stocks: new Map(),
   },
   reducers: {
     // Add other synchronous reducers if needed
     setInitialStock: (state, action) => {
-      // Update the state with the fetched data if needed
-      return action.payload;
+      state.stocks = action.payload;
     },
   },
   extraReducers: (builder) => {
-    // Handle the fulfilled action for getInitialStock
-    builder.addCase(getInitialStock.fulfilled, (state, action) => {
-      // Update the state with the fetched data if needed
-      console.log(action.payload)
-
-      state.isLoading = false;
-      state.isError = false;
-
-      state.stocks = action.payload;
-
-      // return action.payload;
-    });
-
-    // Handle the pending action for getInitialStock
-    builder.addCase(getInitialStock.pending, (state, action) => {
-      // Update the state with the fetched data if needed
-      state.isLoading = true;
-      return;
-    });
-
-    builder.addCase(getInitialStock.rejected, (state, action) => {
-      // Update the state with the fetched data if needed
-      console.log('Error', action.payload);
-      state.isError = true;
-      return;
-    });
+    builder
+      .addCase(getInitialStock.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.stocks = action.payload;
+      })
+      .addCase(getInitialStock.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getInitialStock.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      });
   },
 });
 
-// Export actions
-export default stockSlice.reducer;
+// Export actions and reducer
 export const { setInitialStock } = stockSlice.actions;
+export default stockSlice.reducer;
 export { getInitialStock };

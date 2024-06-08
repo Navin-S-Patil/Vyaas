@@ -7,7 +7,9 @@
   "scripts": {
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
-    "dev" : "concurrently \"npm run server\" \"npm run client\""
+    "dev" : "concurrently \"npm run server\" \"npm run client\"",
+    "install-client" : "cd client && npm install",
+    "start-client" : "cd client && npm start"
   },
   "repository": {
     "type": "git",

@@ -29,7 +29,7 @@ mongoose
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // The URL of your frontend
+    origin: "https://vyaas-client.onrender.com", // The URL of your frontend
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
 );

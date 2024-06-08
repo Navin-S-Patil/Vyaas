@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import list from "../utils/stockData";
 
-const baseUrl = "https://vyaas-production.up.railway.app";
+const baseUrl = "http://localhost:5000";
 
 // Async thunk for fetching initial stock data
 const getInitialStock = createAsyncThunk("stock/getInitialStock", async () => {
